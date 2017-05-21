@@ -32,7 +32,7 @@ namespace Data
       return _command.Execute();
     }
 
-    internal T ExecuteReader<T>(Func<MySqlDataReader, T> readFunc)
+    public T ExecuteReader<T>(Func<MySqlDataReader, T> readFunc)
     {
       PreExecute();
       return _command.ExecuteReader(readFunc);
