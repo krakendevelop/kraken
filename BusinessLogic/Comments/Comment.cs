@@ -4,22 +4,20 @@ namespace BusinessLogic.Comments
 {
   public class Comment : IEntity
   {
-    public int Id { get; }
+    public int Id { get; set; }
 
-    public int PostId { get; private set; }
     public int CreatorUserId { get; private set; }
-    
+    public int PostId { get; private set; }
+
     public string Content;
 
     public DateTime CreateTime { get; private set; }
     public DateTime UpdateTime { get; private set; }
 
-    public Comment(int id, int postId, int creatorUserId, string content)
+    public Comment(int creatorUserId, int postId, string content)
     {
-      Id = id;
-
-      PostId = postId;
       CreatorUserId = creatorUserId;
+      PostId = postId;
 
       Content = content;
 

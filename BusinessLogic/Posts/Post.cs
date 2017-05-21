@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using BusinessLogic.Comments;
 
 namespace BusinessLogic.Posts
 {
   public class Post : IEntity
   {
-    public int Id { get; }
+    // todo victor: come up with a good way of updating Id upon save
+    public int Id { get; set; }
 
-    public int CreatorUserId { get; private set; }
+    public int UserId { get; private set; }
 
     public string Title;
     public string Content;
@@ -14,11 +17,11 @@ namespace BusinessLogic.Posts
     public DateTime CreateTime { get; private set; }
     public DateTime UpdateTime { get; private set; }
 
-    public Post(string title, int creatorUserId, string content)
+    public Post(int userId, string title, string content)
     {
-      Title = title;
-      CreatorUserId = creatorUserId;
+      UserId = userId;
 
+      Title = title;
       Content = content;
 
       CreateTime = DateTime.UtcNow;
