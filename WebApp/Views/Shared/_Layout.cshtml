@@ -1,125 +1,147 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8"/>
   <title>Sample page</title>
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
+  <meta name="keywords" content=""/>
+  <meta name="description" content=""/>
   <link rel="shortcut icon" href="#">
   <link href="~/Style/Normalize.css" rel="stylesheet">
   <link href="~/Style/Stylesheet.css" rel="stylesheet">
   @RenderSection("head", required: false)
 </head>
 <body>
-  <div class="page">
-    <header class="page-header">
-      <nav class="header-nav">
-        <ul class="main-navigation">
-          <li class="main-navigation-item">
-            <a class="logo" href="#">Logo</a>
+<div class="page">
+  <header class="page-header">
+    <nav class="header-nav">
+      <ul class="main-navigation">
+        <li class="main-navigation-item">
+          <a class="logo" href="#">Logo</a>
+        </li>
+        <li class="main-navigation-item">
+          <a href="#">Nav item</a>
+        </li>
+        <li class="main-navigation-item main-navigation-selected">
+          <a href="#">Nav item</a>
+        </li>
+        <li class="main-navigation-item">
+          <a href="#">Nav item</a>
+        </li>
+        <li class="main-navigation-item">
+          <a href="#">Nav item</a>
+        </li>
+        <li class="main-navigation-item">
+          <a href="#">Nav item</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <section class="container">
+    <main id="containter" class="main">
+      @RenderBody()
+    </main>
+    <aside class="aside">
+      <nav class="aside-nav">
+        <ul class="aside-menu">
+          <li class="aside-menu-item">
+            <a href="#">Nav item</a>
           </li>
-          <li class="main-navigation-item"><a href="#">Nav item</a></li>
-          <li class="main-navigation-item main-navigation-selected"><a href="#">Nav item</a></li>
-          <li class="main-navigation-item"><a href="#">Nav item</a></li>
-          <li class="main-navigation-item"><a href="#">Nav item</a></li>
-          <li class="main-navigation-item"><a href="#">Nav item</a></li>
+          <li class="aside-menu-item">
+            <a href="#">Nav item</a>
+          </li>
+          <li class="aside-menu-item">
+            <a href="#">Nav item</a>
+          </li>
+          <li class="aside-menu-item">
+            <a href="#">Nav item</a>
+          </li>
+          <li class="aside-menu-item">
+            <a href="#">Nav item</a>
+          </li>
+          <li class="aside-menu-item">
+            <a href="#">Nav item</a>
+          </li>
         </ul>
       </nav>
-    </header>
-    <section class="container">
-      <main class="main">
-        @RenderBody()
-      </main>
-      <aside class="aside">
-        <nav class="aside-nav">
-          <ul class="aside-menu">
-            <li class="aside-menu-item"><a href="#">Nav item</a></li>
-            <li class="aside-menu-item"><a href="#">Nav item</a></li>
-            <li class="aside-menu-item"><a href="#">Nav item</a></li>
-            <li class="aside-menu-item"><a href="#">Nav item</a></li>
-            <li class="aside-menu-item"><a href="#">Nav item</a></li>
-            <li class="aside-menu-item"><a href="#">Nav item</a></li>
-          </ul>
-        </nav>
-        <section class="aside-content">
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-          <article class="aside-post">
-            <a href="#" class="aside-post-link">
-              <figure class="aside-post-caption">
-                <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-                <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-              </figure>
-            </a>
-          </article>
-        </section>
-      </aside>
-    </section>
-    <footer class="footer container">
-      <span>Footer text 2017</span>
-    </footer>
-  </div>
+      <section class="aside-content">
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+        <article class="aside-post">
+          <a href="#" class="aside-post-link">
+            <figure class="aside-post-caption">
+              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
+              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
+            </figure>
+          </a>
+        </article>
+      </section>
+    </aside>
+  </section>
+  <footer class="footer container">
+    <span>Footer text 2017</span>
+  </footer>
+</div>
 </body>
 </html>
