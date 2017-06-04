@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using BusinessLogic.Posts;
 
@@ -14,11 +16,7 @@ namespace WebApp.Controllers
 
     public ActionResult LoadNextPosts(int pageIndex, int pageSize)
     {
-      var nextPosts = new List<Post>()
-      {
-        new Post(1, "Test title", "Test content")
-      };
-
+      var nextPosts = PostManager.GetAll(pageIndex * pageSize, pageSize);
       return Json(nextPosts, JsonRequestBehavior.AllowGet);
     }
   }
