@@ -3,7 +3,7 @@ var pageIndex = 0;
 
 $(document).ready(function () {
   var lastLoadTime = Date.now();
-  GetData();
+  getData();
 
   var loading = false;
   $(window).scroll(function () {
@@ -15,17 +15,17 @@ $(document).ready(function () {
 
     if (!loading && timeValid && currentScroll >= docHeight - windowHeight - preloadBefore) {
       loading = true;
-      GetData();
+      getData();
       loading = false;
       lastLoadTime = Date.now();
     }
   });
 });
 
-function GetData() {
+function getData() {
   $.ajax({
     type: 'GET',
-    url: '/home/LoadNextPosts',
+    url: '/post/LoadNextPosts',
     data: { "pageindex": pageIndex, "pagesize": pageSize },
     dataType: 'json',
     success: function (data) {
@@ -59,12 +59,12 @@ function buildPost(post) {
 					"</figure>" +
 					"<footer class=\"post-footer\">" +
 						"<span class=\"post-meta\">" +
-							"<a href=\"#\" class=\"post-meta-link\" target=\"_blank\">10,525 points</a>" +
+							"<a id=\"points" + post.Id + "\" href=\"#\" class=\"post-meta-link\" target=\"_blank\">10525 points</a>" +
 							"<a href=\"#\" class=\"post-meta-link\" target=\"_blank\">158 comments</a>" +
 						"</span>" +
 						"<span class=\"post-actions\">" +
-							"<button class=\"button post-actions-button\">Like</button>" +
-							"<button class=\"button post-actions-button\">Dislike</button>" +
+							"<button onclick=\"like(" + post.Id + ")\" class=\"button post-actions-button\">Like</button>" +
+							"<button onclick=\"dislike(" + post.Id + ")\" class=\"button post-actions-button\">Dislike</button>" +
 							"<button class=\"button post-actions-button\">Comment</button>" +
 						"</span>" +
 					"</footer>" +

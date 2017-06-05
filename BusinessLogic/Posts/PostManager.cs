@@ -29,7 +29,9 @@ namespace BusinessLogic.Posts
 
       for (int i = 1; i < 5000; i++)
       {
-        TestPosts.Add(new Post(1, "Post title number " + i, images[i % images.Count]));
+        var post = new Post(1, "Post title number " + i, images[i % images.Count]);
+        TestPosts.Add(post);
+        post.Id = i;
       }
     }
 

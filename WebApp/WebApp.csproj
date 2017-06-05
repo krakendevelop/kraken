@@ -123,6 +123,7 @@
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\PostRating.js" />
     <Content Include="Scripts\PostLoader.js" />
     <Content Include="Style\Normalize.css" />
     <Content Include="Style\Stylesheet.css" />
@@ -130,7 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,6 +159,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
