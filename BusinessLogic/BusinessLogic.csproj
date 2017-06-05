@@ -52,6 +52,9 @@
     <Compile Include="Posts\PostManager.cs" />
     <Compile Include="Posts\PostRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ratings\RatingRepo.cs" />
+    <Compile Include="Ratings\Rating.cs" />
+    <Compile Include="Ratings\RatingEnums.cs" />
     <Compile Include="Repositories.cs" />
   </ItemGroup>
   <ItemGroup>

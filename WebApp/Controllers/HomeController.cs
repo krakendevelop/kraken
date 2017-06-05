@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using BusinessLogic.Posts;
 
 namespace WebApp.Controllers
@@ -18,6 +15,11 @@ namespace WebApp.Controllers
     {
       var nextPosts = PostManager.GetAll(pageIndex * pageSize, pageSize);
       return Json(nextPosts, JsonRequestBehavior.AllowGet);
+    }
+
+    public ActionResult LikePost(int postId)
+    {
+      return null;
     }
   }
 }

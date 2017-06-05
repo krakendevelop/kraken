@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BusinessLogic.Ratings;
+using Common.Exceptions;
 
 namespace BusinessLogic.Posts
 {
   public static class PostManager
   {
-    public static List<Post> _testPosts = new List<Post>();
+    public static List<Post> TestPosts = new List<Post>();
 
     static PostManager()
     {
@@ -27,33 +29,57 @@ namespace BusinessLogic.Posts
 
       for (int i = 1; i < 5000; i++)
       {
-        _testPosts.Add(new Post(1, "Post title number " + i, images[i % images.Count]));
+        TestPosts.Add(new Post(1, "Post title number " + i, images[i % images.Count]));
       }
     }
 
     public static Post Create(int userId, string title, string content)
     {
       var post = new Post(userId, title, content);
-      post.Id = Repositories.PostRepo.Save(post);
+      post.Id = Repositories.Posts.Save(post);
 
       return post;
     }
 
     public static void Update(Post post)
     {
-      Repositories.PostRepo.Update(post.Id, post);
+      Repositories.Posts.Update(post.Id, post);
     }
 
     public static Post Get(int id)
     {
-      return Repositories.PostRepo.Read(id);
+      return Repositories.Posts.Read(id);
     }
 
     public static List<Post> GetAll(int idFrom, int count)
     {
-      //return Repositories.PostRepo.ReadAll(idFrom, count);
-      var lastShown = _testPosts.ElementAt(idFrom);
-      return _testPosts.SkipWhile(p => p != lastShown).Take(count).ToList();
+      //return Repositories.Posts.ReadAll(idFrom, count);
+      var lastShown = TestPosts.ElementAt(idFrom);
+      return TestPosts.SkipWhile(p => p != lastShown).Take(count).ToList();
+    }
+
+    public static Rating Like(int userId, int id)
+    {
+      var rating = new Rating(userId, RatingKindId.Like, RatingTargetKindId.Post, id);
+
+      Repositories.Ratings.Delete(rating);
+      Repositories.Ratings.Save(rating);
+      return rating;
+    }
+
+    public static Rating Dislike(int userId, int id)
+    {
+      var rating = new Rating(userId, RatingKindId.Dislike, RatingTargetKindId.Post, id);
+
+      Repositories.Ratings.Delete(rating);
+      Repositories.Ratings.Save(rating);
+      return rating;
+    }
+
+    public static void RemoveRating(int userId, int id)
+    {
+      var rating = new Rating(userId, RatingTargetKindId.Post, id);
+      Repositories.Ratings.Delete(rating);
     }
   }
 }
