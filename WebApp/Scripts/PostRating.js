@@ -1,11 +1,11 @@
-﻿function like(postId) {
+﻿function likePost(post) {
   $.ajax({
     type: 'GET',
     url: '/post/Like',
-    data: { "postId": postId },
+    data: { "postId": post.Id },
     dataType: 'json',
     success: function (data) {
-      $("#points" + postId).text("+1");
+      post.LikeCount++;
     },
     error: function (error) {
       alert("Error while retrieving data!");
@@ -13,16 +13,16 @@
   });
 }
 
-function dislike(postId) {
+function dislikePost(post) {
   $.ajax({
     type: 'GET',
     url: '/post/Dislike',
-    data: { "postId": postId },
+    data: { "postId": post.Id },
     dataType: 'json',
     success: function (data) {
-      $("#points" + postId).text("-1");
+      post.DislikeCount++;
     },
-    error: function (error) {
+    error: function (error) { 
       alert("Error while retrieving data!");
     }
   });

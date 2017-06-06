@@ -3,7 +3,7 @@ var pageIndex = 0;
 
 $(document).ready(function () {
   var lastLoadTime = Date.now();
-  getData();
+  ko.applyBindings(new ViewModel());
 
   var loading = false;
   $(window).scroll(function () {
@@ -22,19 +22,47 @@ $(document).ready(function () {
   });
 });
 
+function ViewModel() {
+  posts = ko.observableArray([]);
+  getData();
+
+  this.like = function (post) {
+    likePost(post);
+  }
+
+  this.dislike = function (post) {
+    dislikePost(post);
+  }
+
+  this.likeCount = ko.observable("LikeCount");
+  this.dislikeCount = ko.observable("DislikeCount");
+
+  this.rating = ko.computed(function () {
+    return this.likeCount - this.dislikeCount;
+  });
+}
+
 function getData() {
   $.ajax({
     type: 'GET',
     url: '/post/LoadNextPosts',
     data: { "pageindex": pageIndex, "pagesize": pageSize },
     dataType: 'json',
-    success: function (data) {
-      if (data != null) {
-        for (var i = 0; i < data.length; i++) {
-          $("#container").append(buildPost(data[i]));
-        }
-        pageIndex++;
+    success: function(nextPosts) {
+      if (nextPosts == null)
+        return;
+
+      for (var i = 0; i < nextPosts.length; i++) {
+        var post = nextPosts[i];
+
+        
+
+        
+
+        posts.push(post);
       }
+
+      pageIndex++;
     },
     beforeSend: function () {
       $("#progress").show();
@@ -46,27 +74,4 @@ function getData() {
       alert("Error while retrieving data!");
     }
   });
-}
-
-function buildPost(post) {
-  return "<article class=\"post\">" +
-					"<header class=\"post-header\">" +
-						"<h3 class=\"post-header-title\">" + post.Title + "</h3>" +
-					"</header>" +
-					"<figure class=\"post-caption\">" +
-					  "<img src=\"" + post.Content + "\" class=\"post-media\" alt=\"The Pulpit Rock\" width=\"700\" height=\"525\">" +
-					  "<figcaption class=\"post-caption-data\">Fig1. - The Pulpit Rock, Norway.</figcaption>" +
-					"</figure>" +
-					"<footer class=\"post-footer\">" +
-						"<span class=\"post-meta\">" +
-							"<a id=\"points" + post.Id + "\" href=\"#\" class=\"post-meta-link\" target=\"_blank\">10525 points</a>" +
-							"<a href=\"#\" class=\"post-meta-link\" target=\"_blank\">158 comments</a>" +
-						"</span>" +
-						"<span class=\"post-actions\">" +
-							"<button onclick=\"like(" + post.Id + ")\" class=\"button post-actions-button\">Like</button>" +
-							"<button onclick=\"dislike(" + post.Id + ")\" class=\"button post-actions-button\">Dislike</button>" +
-							"<button class=\"button post-actions-button\">Comment</button>" +
-						"</span>" +
-					"</footer>" +
-				"</article>";
 }

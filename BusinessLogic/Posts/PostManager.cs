@@ -69,6 +69,11 @@ namespace BusinessLogic.Posts
       return rating;
     }
 
+    public static List<Rating> GetRatings(int postId)
+    {
+      return Repositories.Ratings.ReadByPostId(postId);
+    }
+
     public static Rating Dislike(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Dislike, RatingTargetKindId.Post, id);
