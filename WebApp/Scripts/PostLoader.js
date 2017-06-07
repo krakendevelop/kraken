@@ -23,23 +23,10 @@ $(document).ready(function () {
 });
 
 function ViewModel() {
+  var self = this;
   posts = ko.observableArray([]);
+
   getData();
-
-  this.like = function (post) {
-    likePost(post);
-  }
-
-  this.dislike = function (post) {
-    dislikePost(post);
-  }
-
-  this.likeCount = ko.observable("LikeCount");
-  this.dislikeCount = ko.observable("DislikeCount");
-
-  this.rating = ko.computed(function () {
-    return this.likeCount - this.dislikeCount;
-  });
 }
 
 function getData() {
@@ -54,11 +41,8 @@ function getData() {
 
       for (var i = 0; i < nextPosts.length; i++) {
         var post = nextPosts[i];
-
-        
-
-        
-
+        post.LikeCount = ko.observable(post.LikeCount);
+        post.DislikeCount = ko.observable(post.DislikeCount);
         posts.push(post);
       }
 

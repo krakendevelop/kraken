@@ -5,7 +5,8 @@
     data: { "postId": post.Id },
     dataType: 'json',
     success: function (data) {
-      post.LikeCount++;
+      var current = post.LikeCount();
+      post.LikeCount(current + 1);
     },
     error: function (error) {
       alert("Error while retrieving data!");
@@ -20,7 +21,8 @@ function dislikePost(post) {
     data: { "postId": post.Id },
     dataType: 'json',
     success: function (data) {
-      post.DislikeCount++;
+      var current = post.DislikeCount();
+      post.DislikeCount(current + 1);
     },
     error: function (error) { 
       alert("Error while retrieving data!");
