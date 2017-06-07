@@ -23,6 +23,7 @@ namespace WebApp.Controllers
           new Rating(1, RatingKindId.Dislike, RatingTargetKindId.Post, post.Id),
         };
 
+        // todo vkoshman move this to business logic
         ratings.ForEach(r =>
         {
           switch (r.KindId)

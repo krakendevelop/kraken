@@ -6,11 +6,10 @@
 }
 
 <script src="~/Scripts/jQuery/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/PostLoader.js"></script>
-<script src="~/Scripts/PostRating.js"></script>
+<script src="~/Scripts/Posts.js"></script>
 <script src="~/Scripts/knockout-3.4.2.js"></script>
 
 <h2>Kraken Main</h2>
 
 <div data-bind="template: { name: 'post-preview-template', foreach: posts, as: 'post' }"></div>
-@Html.Partial("PostPreviewTemplate");
+@Html.Partial("~/Views/Post/PostPreviewTemplate.cshtml");

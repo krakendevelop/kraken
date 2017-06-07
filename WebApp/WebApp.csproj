@@ -125,8 +125,7 @@
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
-    <Content Include="Scripts\PostRating.js" />
-    <Content Include="Scripts\PostLoader.js" />
+    <Content Include="Scripts\Posts.js" />
     <Content Include="Style\Normalize.css" />
     <Content Include="Style\Stylesheet.css" />
     <Content Include="Web.config" />
@@ -153,7 +152,7 @@
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\PostPreviewTemplate.cshtml" />
+    <Content Include="Views\Post\PostPreviewTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,7 +163,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
