@@ -2,15 +2,14 @@
 using System.IO;
 using System.Linq;
 using BusinessLogic.Ratings;
-using Common.Exceptions;
 
 namespace BusinessLogic.Posts
 {
-  public static class PostManager
+  public class PostManager
   {
-    public static List<Post> TestPosts = new List<Post>();
+    public List<Post> TestPosts = new List<Post>();
 
-    static PostManager()
+    public PostManager()
     {
       var images = new List<string>
       {
@@ -35,7 +34,7 @@ namespace BusinessLogic.Posts
       }
     }
 
-    public static Post Create(int userId, string title, string content)
+    public Post Create(int userId, string title, string content)
     {
       var post = new Post(userId, title, content);
       post.Id = Repositories.Posts.Save(post);
@@ -43,24 +42,30 @@ namespace BusinessLogic.Posts
       return post;
     }
 
-    public static void Update(Post post)
+    public void Update(Post post)
     {
       Repositories.Posts.Update(post.Id, post);
     }
 
-    public static Post Get(int id)
+    #region Get
+
+    public Post Get(int id)
     {
       return Repositories.Posts.Read(id);
     }
 
-    public static List<Post> GetAll(int idFrom, int count)
+    public List<Post> GetAll(int idFrom, int count)
     {
       //return Repositories.Posts.ReadAll(idFrom, count);
       var lastShown = TestPosts.ElementAt(idFrom);
       return TestPosts.SkipWhile(p => p != lastShown).Take(count).ToList();
     }
 
-    public static Rating Like(int userId, int id)
+    #endregion
+
+    #region Ratings
+
+    public Rating Like(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Like, RatingTargetKindId.Post, id);
 
@@ -69,12 +74,12 @@ namespace BusinessLogic.Posts
       return rating;
     }
 
-    public static List<Rating> GetRatings(int postId)
+    public List<Rating> GetRatings(int postId)
     {
       return Repositories.Ratings.ReadByPostId(postId);
     }
 
-    public static Rating Dislike(int userId, int id)
+    public Rating Dislike(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Dislike, RatingTargetKindId.Post, id);
 
@@ -83,10 +88,17 @@ namespace BusinessLogic.Posts
       return rating;
     }
 
-    public static void RemoveRating(int userId, int id)
+    public void RemoveRating(int userId, int id)
     {
       var rating = new Rating(userId, RatingTargetKindId.Post, id);
       Repositories.Ratings.Delete(rating);
+    }
+
+    #endregion
+
+    public void Delete(int postId)
+    {
+      Repositories.Posts.Delete(postId);
     }
   }
 }

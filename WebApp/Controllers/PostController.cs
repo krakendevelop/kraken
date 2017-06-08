@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
@@ -9,41 +10,53 @@ namespace WebApp.Controllers
 {
   public class PostController : BaseController
   {
-    public ActionResult LoadNextPosts(int pageIndex, int pageSize)
+    public ActionResult Get(int postId)
     {
-      var nextPosts = new List<PostModel>();
-      foreach (var post in PostManager.GetAll(pageIndex * pageSize, pageSize))
-      {
-        var postModel = new PostModel(post);
-        //var ratings = PostManager.GetRatings(post.Id); todo vkoshman
-        var ratings = new List<Rating>
+      var post = PostManager.Get(postId);
+      var model = BuildModel(post);
+
+      return Json(model, JsonRequestBehavior.AllowGet);
+    }
+
+    public ActionResult GetNext(int pageIndex, int pageSize)
+    {
+      var nextPosts = PostManager
+        .GetAll(pageIndex * pageSize, pageSize)
+        .Select(BuildModel)
+        .ToList();
+
+      return Json(nextPosts, JsonRequestBehavior.AllowGet);
+    }
+
+    private static PostModel BuildModel(Post post)
+    {
+      var model = new PostModel(post);
+
+      // todo vkoshman read from DB
+      var ratings = new List<Rating>
         {
           new Rating(1, RatingKindId.Like, RatingTargetKindId.Post, post.Id),
           new Rating(1, RatingKindId.Like, RatingTargetKindId.Post, post.Id),
           new Rating(1, RatingKindId.Dislike, RatingTargetKindId.Post, post.Id),
         };
 
-        // todo vkoshman move this to business logic
-        ratings.ForEach(r =>
+      foreach (var rating in ratings)
+      {
+        switch (rating.KindId)
         {
-          switch (r.KindId)
-          {
-            case RatingKindId.Like:
-              postModel.LikeCount++;
-              break;
-            case RatingKindId.Dislike:
-              postModel.DislikeCount++;
-              break;
-            default:
-              throw new KrakenException(KrakenExceptionCode.Rating_IsUnknown,
-                "Rating is not supposed to be unknown at this point");
-          }
-        });
-
-        nextPosts.Add(postModel);
+          case RatingKindId.Like:
+            model.LikeCount++;
+            break;
+          case RatingKindId.Dislike:
+            model.DislikeCount++;
+            break;
+          default:
+            throw new KrakenException(KrakenExceptionCode.Rating_IsUnknown,
+              "Rating is not supposed to be unknown at this point");
+        }
       }
 
-      return Json(nextPosts, JsonRequestBehavior.AllowGet);
+      return model;
     }
 
     public ActionResult Like(int postId)

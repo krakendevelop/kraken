@@ -30,7 +30,7 @@ function ViewModel() {
 function getData() {
   $.ajax({
     type: 'GET',
-    url: '/post/LoadNextPosts',
+    url: '/post/GetNext',
     data: { "pageindex": pageIndex, "pagesize": pageSize },
     dataType: 'json',
     success: function(nextPosts) {

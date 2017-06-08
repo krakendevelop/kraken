@@ -64,5 +64,10 @@ namespace BusinessLogic.Posts
           });
       }
     }
+
+    public void Delete(int id)
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }

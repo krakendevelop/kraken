@@ -14,6 +14,7 @@ namespace BusinessLogic.Posts
 
     public DateTime CreateTime { get; private set; }
     public DateTime UpdateTime { get; private set; }
+    public bool IsDeleted { get; private set; }
 
     public Post(int userId, string title, string content)
     {
@@ -23,17 +24,6 @@ namespace BusinessLogic.Posts
       Content = content;
 
       CreateTime = DateTime.UtcNow;
-      UpdateTime = DateTime.UtcNow;
-    }
-
-    public void Update(string title = null, string content = null)
-    {
-      if (!string.IsNullOrEmpty(title))
-        Title = title;
-
-      if (!string.IsNullOrEmpty(content))
-        Content = content;
-
       UpdateTime = DateTime.UtcNow;
     }
   }
