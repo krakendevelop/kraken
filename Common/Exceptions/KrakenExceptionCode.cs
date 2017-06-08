@@ -6,5 +6,8 @@
 
     Rating_ExistsAlready = 1,
     Rating_IsUnknown = 2,
+
+    User_NotFound = 100,
+
   }
 }

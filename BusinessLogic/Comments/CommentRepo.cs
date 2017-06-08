@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLogic.Posts;
-using Common.Serialization;
-using Data;
 
 namespace BusinessLogic.Comments
 {

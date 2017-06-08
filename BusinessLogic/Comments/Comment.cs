@@ -6,30 +6,22 @@ namespace BusinessLogic.Comments
   {
     public int Id { get; set; }
 
-    public int CreatorUserId { get; private set; }
-    public int PostId { get; private set; }
+    public int UserId;
+    public int PostId;
 
     public string Content;
 
-    public DateTime CreateTime { get; private set; }
-    public DateTime UpdateTime { get; private set; }
+    public DateTime CreateTime;
+    public DateTime UpdateTime;
 
-    public Comment(int creatorUserId, int postId, string content)
+    public Comment(int userId, int postId, string content)
     {
-      CreatorUserId = creatorUserId;
+      UserId = userId;
       PostId = postId;
 
       Content = content;
 
       CreateTime = DateTime.UtcNow;
-      UpdateTime = DateTime.UtcNow;
-    }
-
-    public void Update(string content = null)
-    {
-      if (!string.IsNullOrEmpty(content))
-        Content = content;
-
       UpdateTime = DateTime.UtcNow;
     }
   }

@@ -56,6 +56,9 @@
     <Compile Include="Ratings\Rating.cs" />
     <Compile Include="Ratings\RatingEnums.cs" />
     <Compile Include="Repositories.cs" />
+    <Compile Include="Users\UserRepo.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -71,6 +74,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
