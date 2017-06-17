@@ -8,13 +8,11 @@ namespace WebApp.Controllers
 {
   public abstract class BaseController : Controller
   {
-    protected PostManager PostManager;
-    protected CommentManager CommentManager;
+    protected static PostManager PostManager = new PostManager(new TestPostRepo(), new RatingRepo());
+    protected static CommentManager CommentManager = new CommentManager(new CommentRepo(), new RatingRepo());
 
     protected BaseController()
     {
-      PostManager = new PostManager(new TestPostRepo(), new RatingRepo());
-      CommentManager = new CommentManager(new CommentRepo(), new RatingRepo());
     }
 
     protected int CurrentUserId

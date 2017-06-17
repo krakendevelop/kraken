@@ -1,23 +1,33 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using BusinessLogic.Ratings;
+using Common.Serialization;
+using log4net;
 
 namespace BusinessLogic.Posts
 {
   public class PostManager
   {
+    private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
     private readonly IPostRepo _postRepo;
     private readonly IRatingRepo _ratingRepo;
 
     public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo)
     {
+      Logger.Debug("Initializing...");
+
       _postRepo = postRepo;
       _ratingRepo = ratingRepo;
+
+      Logger.DebugFormat("Initialized with {0}, {1}", postRepo, ratingRepo);
     }
 
     public Post Create(int userId, string title, string content)
     {
       var post = new Post(userId, title, content);
+
+      Logger.DebugFormat("Creating post: {0}", post.ToJson());
+
       post.Id = _postRepo.Save(post);
 
       return post;
@@ -47,8 +57,7 @@ namespace BusinessLogic.Posts
     public Rating Like(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Like, RatingTargetKindId.Post, id);
-
-      _ratingRepo.Delete(rating);
+      
       _ratingRepo.Save(rating);
       return rating;
     }
@@ -61,8 +70,7 @@ namespace BusinessLogic.Posts
     public Rating Dislike(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Dislike, RatingTargetKindId.Post, id);
-
-      _ratingRepo.Delete(rating);
+      
       _ratingRepo.Save(rating);
       return rating;
     }

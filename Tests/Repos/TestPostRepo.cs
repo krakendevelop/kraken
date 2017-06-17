@@ -16,10 +16,14 @@ namespace Tests.Repos
 
     public TestPostRepo()
     {
+      Logger.Debug("Initializing...");
+
       _lastPostId = 0;
       _posts = new List<Post>();
 
       InitPosts();
+
+      Logger.DebugFormat("Initialized {0} posts", _posts.Count);
     }
 
     private void InitPosts()
@@ -45,14 +49,13 @@ namespace Tests.Repos
         _posts.Add(post);
         post.Id = ++_lastPostId;
       }
-
-      Logger.Debug("Initialized posts");
     }
 
     public int Save(Post post)
     {
       post.Id = _lastPostId++;
       _posts.Add(post);
+      Logger.DebugFormat("Saved post: {0}", post);
       return _lastPostId;
     }
 
@@ -60,11 +63,16 @@ namespace Tests.Repos
     {
       var postToUpdate = _posts.Single(p => p.Id == id);
       postToUpdate.Update(post.Title, post.Content);
+
+      Logger.DebugFormat("Updated post {0} with: {1}", post.Id, post);
     }
 
     public Post Read(int id)
     {
-      return _posts.SingleOrDefault(p => p.Id == id);
+      var post = _posts.SingleOrDefault(p => p.Id == id);
+      Logger.DebugFormat("Read post: {0}", post);
+
+      return post;
     }
 
     public List<Post> ReadAll(int idFrom, int count)
@@ -74,13 +82,14 @@ namespace Tests.Repos
         .Take(count)
         .ToList();
 
-      Logger.Debug("Loaded next posts");
+      Logger.DebugFormat("Loaded {0} posts idFrom: {1} count: {2}", posts.Count, idFrom, count);
       return posts;
     }
 
     public void Delete(int id)
     {
-      _posts.RemoveAll(p => p.Id == id);
+      var deletedCount = _posts.RemoveAll(p => p.Id == id);
+      Logger.DebugFormat("Deleted {0} posts by Id: {1}", deletedCount, id);
     }
   }
 }
