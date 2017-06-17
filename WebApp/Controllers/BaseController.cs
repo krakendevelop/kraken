@@ -8,8 +8,8 @@ namespace WebApp.Controllers
 {
   public abstract class BaseController : Controller
   {
-    protected static PostManager PostManager = new PostManager(new TestPostRepo(), new RatingRepo());
-    protected static CommentManager CommentManager = new CommentManager(new CommentRepo(), new RatingRepo());
+    protected static PostManager PostManager = new PostManager(new TestPostRepo(), new TestRatingRepo());
+    protected static CommentManager CommentManager = new CommentManager(new TestCommentRepo(), new TestRatingRepo());
 
     protected BaseController()
     {

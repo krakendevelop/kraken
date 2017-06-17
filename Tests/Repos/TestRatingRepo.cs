@@ -2,11 +2,16 @@
 using System.Linq;
 using BusinessLogic.Ratings;
 using Common.Exceptions;
+using Common.Serialization;
+using log4net;
+using log4net.Repository.Hierarchy;
 
 namespace Tests.Repos
 {
   public class TestRatingRepo : IRatingRepo
   {
+    private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
     private int _lastId;
     private readonly List<Rating> _ratings;
 
@@ -27,6 +32,9 @@ namespace Tests.Repos
       {
         rating.Id = ++_lastId;
         _ratings.Add(rating);
+        
+        Logger.DebugFormat("Rating for {0} with Id {1} by User {2} does not exist, saving: {3}",
+          rating.KindId, rating.Id, rating.UserId, rating.ToJson());
         return _lastId;
       }
 
@@ -34,6 +42,8 @@ namespace Tests.Repos
         throw new KrakenException("Unable to save the same rating");
 
       existingRating.SwitchKind();
+      Logger.DebugFormat("Rating for {0} with Id {1} by User {2} exists, switching kind and saving: {3}",
+          rating.KindId, rating.Id, rating.UserId, rating.ToJson());
       return _lastId;
     }
 

@@ -9,8 +9,9 @@ namespace WebApp.Models
     public int CommentCount { get; set; }
 
     public PostModel(Post post)
-      : base(post.Id, post.Title, post.Content)
+      : base(post.UserId, post.Title, post.Content)
     {
+      Id = post.Id;
     }
   }
 }

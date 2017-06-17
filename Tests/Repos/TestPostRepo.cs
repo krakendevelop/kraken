@@ -46,8 +46,9 @@ namespace Tests.Repos
       for (int i = 1; i < 5000; i++)
       {
         var post = new Post(1, "Post title number " + i, images[i % images.Count]);
+        post.Id = i;
         _posts.Add(post);
-        post.Id = ++_lastPostId;
+        _lastPostId = i;
       }
     }
 

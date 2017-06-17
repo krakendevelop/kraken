@@ -42,14 +42,8 @@ namespace WebApp.Controllers
     private static PostModel BuildModel(Post post)
     {
       var model = new PostModel(post);
-
-      // todo vkoshman read from DB
-      var ratings = new List<Rating>
-        {
-          new Rating(1, RatingKindId.Like, RatingTargetKindId.Post, post.Id),
-          new Rating(1, RatingKindId.Like, RatingTargetKindId.Post, post.Id),
-          new Rating(1, RatingKindId.Dislike, RatingTargetKindId.Post, post.Id),
-        };
+      
+      var ratings = PostManager.GetRatings(post.Id);
 
       foreach (var rating in ratings)
       {
@@ -72,12 +66,14 @@ namespace WebApp.Controllers
 
     public ActionResult Like(int postId)
     {
+      Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUserId, postId);
       PostManager.Like(CurrentUserId, postId);
       return Json(1, JsonRequestBehavior.AllowGet);
     }
 
     public ActionResult Dislike(int postId)
     {
+      Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUserId, postId);
       PostManager.Dislike(CurrentUserId, postId);
       return Json(1, JsonRequestBehavior.AllowGet);
     }

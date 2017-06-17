@@ -40,8 +40,7 @@ namespace BusinessLogic.Ratings
 
       if (KindId == RatingKindId.Like)
         KindId = RatingKindId.Dislike;
-
-      if (KindId == RatingKindId.Dislike)
+      else if (KindId == RatingKindId.Dislike)
         KindId = RatingKindId.Like;
     }
   }
