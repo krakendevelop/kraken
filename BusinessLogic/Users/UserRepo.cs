@@ -2,7 +2,7 @@
 
 namespace BusinessLogic.Users
 {
-  public class UserRepo
+  public class UserRepo : IUserRepo
   {
     public int Save(User user)
     {

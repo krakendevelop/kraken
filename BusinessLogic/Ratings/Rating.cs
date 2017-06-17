@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Exceptions;
 
 namespace BusinessLogic.Ratings
 {
@@ -30,6 +31,18 @@ namespace BusinessLogic.Ratings
       TargetId = targetId;
 
       Time = DateTime.UtcNow;
+    }
+
+    public void SwitchKind()
+    {
+      if (KindId == RatingKindId.Unknown)
+        throw new KrakenException("There must not be ratings with unknown KindId at this point");
+
+      if (KindId == RatingKindId.Like)
+        KindId = RatingKindId.Dislike;
+
+      if (KindId == RatingKindId.Dislike)
+        KindId = RatingKindId.Like;
     }
   }
 }

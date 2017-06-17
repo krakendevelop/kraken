@@ -6,7 +6,7 @@ namespace BusinessLogic.Users
   {
     public int Id { get; set; }
 
-    public string Login;
+    public string Username;
     public string Email;
     public string Password;
     public string ImageUrl;

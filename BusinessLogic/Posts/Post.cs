@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Exceptions;
 
 namespace BusinessLogic.Posts
 {
@@ -26,6 +27,21 @@ namespace BusinessLogic.Posts
 
       CreateTime = DateTime.UtcNow;
       UpdateTime = DateTime.UtcNow;
+    }
+
+    public void Update(string title, string content)
+    {
+      Title = title;
+      Content = content;
+      UpdateTime = DateTime.UtcNow;
+    }
+
+    public void Delete()
+    {
+      if (IsDeleted)
+        throw new KrakenException("Post is deleted already");
+
+      IsDeleted = true;
     }
   }
 }

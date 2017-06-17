@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogic.Comments
 {
-  public class CommentRepo
+  public class CommentRepo : ICommentRepo
   {
     public int Save(Comment comment)
     {

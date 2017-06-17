@@ -5,12 +5,19 @@ namespace BusinessLogic.Users
 {
   public class UserManager
   {
+    private readonly IUserRepo _userRepo;
+
+    public UserManager(IUserRepo userRepo)
+    {
+      _userRepo = userRepo;
+    }
+
     public User Create(string login, string email, string password, string imageUrl,
       string firstName, string lastName, DateTime? birthDate, bool? sex)
     {
       var user = new User
       {
-        Login = login,
+        Username = login,
         Email = email,
         Password = password,
         ImageUrl = imageUrl,
@@ -23,13 +30,13 @@ namespace BusinessLogic.Users
         Sex = sex
       };
 
-      user.Id = Repositories.Users.Save(user);
+      user.Id = _userRepo.Save(user);
       return user;
     }
 
     public User Get(int id)
     {
-      var user = Repositories.Users.Read(id);
+      var user = _userRepo.Read(id);
 
       if (user == null)
         throw new KrakenException(KrakenExceptionCode.User_NotFound, "Unable to find user with Id " + id);

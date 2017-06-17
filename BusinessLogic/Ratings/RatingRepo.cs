@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogic.Ratings
 {
-  public class RatingRepo
+  public class RatingRepo : IRatingRepo
   {
     public int Save(Rating rating)
     {

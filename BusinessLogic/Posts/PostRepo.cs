@@ -4,7 +4,7 @@ using Data;
 
 namespace BusinessLogic.Posts
 {
-  public class PostRepo
+  public class PostRepo : IPostRepo
   {
     public int Save(Post post)
     {

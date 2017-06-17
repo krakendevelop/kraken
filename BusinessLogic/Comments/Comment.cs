@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Exceptions;
 
 namespace BusinessLogic.Comments
 {
@@ -14,6 +15,8 @@ namespace BusinessLogic.Comments
     public DateTime CreateTime;
     public DateTime UpdateTime;
 
+    public bool IsDeleted;
+
     public Comment(int userId, int postId, string content)
     {
       UserId = userId;
@@ -23,6 +26,19 @@ namespace BusinessLogic.Comments
 
       CreateTime = DateTime.UtcNow;
       UpdateTime = DateTime.UtcNow;
+    }
+
+    public void Update(string content)
+    {
+      Content = content;
+    }
+
+    public void Delete()
+    {
+      if (IsDeleted)
+        throw new KrakenException("Comment is deleted already");
+
+      IsDeleted = true;
     }
   }
 }
