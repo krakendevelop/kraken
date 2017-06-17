@@ -4,12 +4,15 @@ using System.Web.Mvc;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
 using Common.Exceptions;
+using log4net;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
   public class PostController : BaseController
   {
+    private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
     public ActionResult Get(int postId)
     {
       var post = PostManager.Get(postId);
@@ -24,7 +27,7 @@ namespace WebApp.Controllers
         .GetAll(pageIndex * pageSize, pageSize)
         .Select(BuildModel)
         .ToList();
-
+      Logger.Debug("Success");
       return Json(nextPosts, JsonRequestBehavior.AllowGet);
     }
 

@@ -2,11 +2,15 @@
 using System.IO;
 using System.Linq;
 using BusinessLogic.Posts;
+using log4net;
+using log4net.Config;
 
 namespace Tests.Repos
 {
   public class TestPostRepo : IPostRepo
   {
+    private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
     private int _lastPostId;
     private readonly List<Post> _posts;
 
@@ -41,6 +45,8 @@ namespace Tests.Repos
         _posts.Add(post);
         post.Id = ++_lastPostId;
       }
+
+      Logger.Debug("Initialized posts");
     }
 
     public int Save(Post post)
@@ -63,10 +69,13 @@ namespace Tests.Repos
 
     public List<Post> ReadAll(int idFrom, int count)
     {
-      return _posts
+      var posts = _posts
         .SkipWhile(p => p.Id < idFrom)
         .Take(count)
         .ToList();
+
+      Logger.Debug("Loaded next posts");
+      return posts;
     }
 
     public void Delete(int id)
