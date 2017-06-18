@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using BusinessLogic.Posts;
 
 namespace WebApp.Controllers
 {
@@ -7,6 +6,12 @@ namespace WebApp.Controllers
   {
     // GET: Home
     public ActionResult Index()
+    {
+      return View();
+    }
+
+    [Authorize(Roles="Admin")]
+    public ActionResult Admin()
     {
       return View();
     }

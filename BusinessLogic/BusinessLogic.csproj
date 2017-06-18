@@ -70,6 +70,12 @@
     <Compile Include="Ratings\RatingRepo.cs" />
     <Compile Include="Ratings\Rating.cs" />
     <Compile Include="Ratings\RatingEnums.cs" />
+    <Compile Include="Users\Auth\AuthenticationStatus.cs" />
+    <Compile Include="Users\Auth\AuthUser.cs" />
+    <Compile Include="Users\Auth\AuthUserManager.cs" />
+    <Compile Include="Users\Auth\AuthUserRepo.cs" />
+    <Compile Include="Users\Auth\IAuthUserRepo.cs" />
+    <Compile Include="Users\Auth\UserRole.cs" />
     <Compile Include="Users\IUserRepo.cs" />
     <Compile Include="Users\UserRepo.cs" />
     <Compile Include="Users\User.cs" />

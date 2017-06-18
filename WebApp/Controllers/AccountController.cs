@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using BusinessLogic.Users.Auth;
+using Common.Exceptions;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -20,25 +22,32 @@ namespace WebApp.Controllers
     public ActionResult Login(LoginViewModel login)
     {
       if (!ModelState.IsValid)
-      {
-        ViewBag.Error = "Form is not valid; please review and try again.";
-        return View("Login");
-      }
+        return View(login);
 
-      if (login.Email == "email@gmail.com" && login.Password == "password")
+      AuthUser authUser;
+      var status = AuthManager.ValidateAndRead(login.Password, out authUser, login.Username, login.Email);
+      if (status == AuthenticationStatus.Succesful)
       {
-        FormsAuthentication.SetAuthCookie(login.Email, true);
+        if (authUser == null)
+          throw new KrakenException("User was validated sucessfully but AuthUser is null");
+
+        var cookieLogin = string.IsNullOrEmpty(login.Username) ? login.Email : login.Username;
+        FormsAuthentication.SetAuthCookie(cookieLogin, true);
+        ProcessSuccesfulLogin(authUser);
+
         return RedirectToAction("Index", "Home");
       }
 
-      ViewBag.Error = "Credentials invalid. Please try again.";
-      return View("Login");
+      ModelState.AddModelError("", "The user name or password provided is incorrect.");
+      return View(login);
     }
 
     public ActionResult Logout()
     {
       Session.Clear();
       FormsAuthentication.SignOut();
+      ProcessLogOut();
+
       return RedirectToAction("Index", "Home");
     }
   }

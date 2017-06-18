@@ -54,9 +54,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Repos\TestAuthUserRepo.cs" />
     <Compile Include="Repos\TestCommentRepo.cs" />
     <Compile Include="Repos\TestPostRepo.cs" />
     <Compile Include="Repos\TestRatingRepo.cs" />
+    <Compile Include="Repos\TestUserRepo.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

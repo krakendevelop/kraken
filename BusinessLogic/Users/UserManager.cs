@@ -1,4 +1,5 @@
 ﻿using System;
+using BusinessLogic.Users.Auth;
 using Common.Exceptions;
 
 namespace BusinessLogic.Users
@@ -12,14 +13,11 @@ namespace BusinessLogic.Users
       _userRepo = userRepo;
     }
 
-    public User Create(string login, string email, string password, string imageUrl,
+    public User Create(AuthUser authUser, string imageUrl,
       string firstName, string lastName, DateTime? birthDate, bool? sex)
     {
-      var user = new User
+      var user = new User(authUser)
       {
-        Username = login,
-        Email = email,
-        Password = password,
         ImageUrl = imageUrl,
         RegistrationDate = DateTime.UtcNow,
         ProfileUpdateDate = DateTime.UtcNow,
@@ -30,7 +28,9 @@ namespace BusinessLogic.Users
         Sex = sex
       };
 
-      user.Id = _userRepo.Save(user);
+      var id = _userRepo.Save(user);
+      user.SetId(id);
+
       return user;
     }
 

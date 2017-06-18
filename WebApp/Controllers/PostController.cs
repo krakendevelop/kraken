@@ -75,15 +75,15 @@ namespace WebApp.Controllers
 
     public ActionResult Like(int postId)
     {
-      Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUserId, postId);
-      PostManager.Like(CurrentUserId, postId);
+      Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUser.Id, postId);
+      PostManager.Like(CurrentUser.Id, postId);
       return Json(1, JsonRequestBehavior.AllowGet);
     }
 
     public ActionResult Dislike(int postId)
     {
-      Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUserId, postId);
-      PostManager.Dislike(CurrentUserId, postId);
+      Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUser.Id, postId);
+      PostManager.Dislike(CurrentUser.Id, postId);
       return Json(1, JsonRequestBehavior.AllowGet);
     }
   }
