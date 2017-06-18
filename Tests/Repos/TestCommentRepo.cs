@@ -28,7 +28,9 @@ namespace Tests.Repos
         _lastCommentId++;
         var postId = i % 50;
         string content = $"This is a comment with Id {_lastCommentId} for post {postId}";
+
         var comment = new Comment(0, postId, content);
+        comment.Id = _lastCommentId;
         _comments.Add(comment);
       }
     }

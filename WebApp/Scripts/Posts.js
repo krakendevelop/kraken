@@ -39,8 +39,11 @@ function getData() {
 
       for (var i = 0; i < nextPosts.length; i++) {
         var post = nextPosts[i];
+
         post.LikeCount = ko.observable(post.LikeCount);
         post.DislikeCount = ko.observable(post.DislikeCount);
+        post.CommentCount = ko.observable(post.CommentCount);
+
         posts.push(post);
       }
 
@@ -65,8 +68,10 @@ function likePost(post) {
     data: { "postId": post.Id },
     dataType: 'json',
     success: function (data) {
-      var current = post.LikeCount();
-      post.LikeCount(current + 1);
+      var currentLikes = post.LikeCount();
+      var currentDislikes = post.DislikeCount();
+      post.LikeCount(currentLikes + 1);
+      post.DislikeCount(currentDislikes - 1);
     },
     error: function (error) {
       alert("Error while retrieving data!");
@@ -81,8 +86,10 @@ function dislikePost(post) {
     data: { "postId": post.Id },
     dataType: 'json',
     success: function (data) {
-      var current = post.DislikeCount();
-      post.DislikeCount(current + 1);
+      var currentDislikes = post.DislikeCount();
+      var currentLikes = post.LikeCount();
+      post.DislikeCount(currentDislikes + 1);
+      post.LikeCount(currentLikes - 1);
     },
     error: function (error) {
       alert("Error while retrieving data!");

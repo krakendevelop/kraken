@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Exceptions;
+using Newtonsoft.Json;
 
 namespace BusinessLogic.Ratings
 {
@@ -12,6 +13,11 @@ namespace BusinessLogic.Ratings
     public RatingTargetKindId TargetKindId { get; private set; }
     public int TargetId { get; private set; }
     public DateTime Time { get; private set; }
+
+    [JsonIgnore] public bool IsPostRating => TargetKindId == RatingTargetKindId.Post;
+    [JsonIgnore] public bool IsCommentRating => TargetKindId == RatingTargetKindId.Comment;
+    [JsonIgnore] public bool IsLike => KindId == RatingKindId.Like;
+    [JsonIgnore] public bool IsDislike => KindId == RatingKindId.Dislike;
 
     public Rating(int userId, RatingKindId kindId, RatingTargetKindId targetKindId, int targetId)
     {

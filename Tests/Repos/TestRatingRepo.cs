@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Ratings;
 using Common.Exceptions;
 using Common.Serialization;
 using log4net;
-using log4net.Repository.Hierarchy;
 
 namespace Tests.Repos
 {
@@ -19,6 +19,31 @@ namespace Tests.Repos
     {
       _lastId = 0;
       _ratings = new List<Rating>();
+
+      InitRatings();
+      Logger.DebugFormat("Initialized with {0} post ratings ({1} likes/{2} dislikes) and {3} comment ratings ({4} likes/{5} dislikes)",
+        _ratings.Count(r => r.IsPostRating),
+        _ratings.Count(r => r.IsPostRating && r.IsLike),
+        _ratings.Count(r => r.IsPostRating && r.IsDislike),
+        _ratings.Count(r => r.IsCommentRating),
+        _ratings.Count(r => r.IsCommentRating && r.IsLike),
+        _ratings.Count(r => r.IsCommentRating && r.IsDislike)
+        );
+    }
+
+    private void InitRatings()
+    {
+      for (int i = 0; i < 10000; i++)
+      {
+        _lastId++;
+        var targetId = i % 50;
+        var kind = i % 2 == 0 && DateTime.UtcNow.Ticks%5 == 0 ? RatingKindId.Dislike : RatingKindId.Like;
+        var targetKind = i % 3 == 0 && DateTime.UtcNow.Ticks % 3 == 0 ? RatingTargetKindId.Post : RatingTargetKindId.Comment;
+
+        var rating = new Rating(0, kind, targetKind, targetId);
+        rating.Id = _lastId;
+        _ratings.Add(rating);
+      }
     }
 
     public int Save(Rating rating)
