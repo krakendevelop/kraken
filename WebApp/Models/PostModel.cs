@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Posts;
+﻿using System.Collections.Generic;
+using BusinessLogic.Posts;
 
 namespace WebApp.Models
 {
@@ -7,6 +8,7 @@ namespace WebApp.Models
     public int LikeCount { get; set; }
     public int DislikeCount { get; set; }
     public int CommentCount { get; set; }
+    public List<CommentModel> Comments { get; set; }
 
     public PostModel(Post post)
       : base(post.UserId, post.Title, post.Content)

@@ -26,7 +26,10 @@ namespace WebApp.Controllers
       }
 
       if (login.Email == "email@gmail.com" && login.Password == "password")
-        FormsAuthentication.RedirectFromLoginPage(login.Email, true);
+      {
+        FormsAuthentication.SetAuthCookie(login.Email, true);
+        return RedirectToAction("Index", "Home");
+      }
 
       ViewBag.Error = "Credentials invalid. Please try again.";
       return View("Login");

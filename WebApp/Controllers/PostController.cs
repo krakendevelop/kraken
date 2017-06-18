@@ -35,16 +35,25 @@ namespace WebApp.Controllers
         .Select(BuildModel)
         .ToList();
 
-      Logger.DebugFormat("Responding with PostModels: {0}", postModels.ToJson());
+      Logger.DebugFormat("Responding with {0} PostModels", postModels.Count);
       return Json(postModels, JsonRequestBehavior.AllowGet);
     }
 
     private static PostModel BuildModel(Post post)
     {
       var model = new PostModel(post);
-      
-      var ratings = PostManager.GetRatings(post.Id);
 
+      var commentModels = CommentManager
+        .GetAll(post.Id)
+        .Select(CommentController.BuildModel)
+        .ToList();
+
+      Logger.DebugFormat("Post {0} contains {1} comments", post.Id, commentModels.Count);
+
+      model.Comments = commentModels; // todo vkoshman not supposed to be here
+      model.CommentCount = commentModels.Count; // todo v.koshman better way of counting comments
+
+      var ratings = PostManager.GetRatings(post.Id);
       foreach (var rating in ratings)
       {
         switch (rating.KindId)

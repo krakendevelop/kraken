@@ -47,6 +47,11 @@ namespace BusinessLogic.Comments
       return rating;
     }
 
+    public List<Rating> GetRatings(int commentId)
+    {
+      return _ratingRepo.ReadByCommentId(commentId);
+    }
+
     public void RemoveRating(int userId, int id)
     {
       var rating = new Rating(userId, RatingTargetKindId.Comment, id);

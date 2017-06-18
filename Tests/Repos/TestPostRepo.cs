@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using BusinessLogic.Posts;
 using log4net;
-using log4net.Config;
 
 namespace Tests.Repos
 {
