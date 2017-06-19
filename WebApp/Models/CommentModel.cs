@@ -8,7 +8,7 @@ namespace WebApp.Models
     public int DislikeCount { get; set; }
 
     public CommentModel(Comment comment)
-      : base(comment.UserId, comment.PostId, comment.Content)
+      : base(comment.UserId, comment.PostId, comment.Text, comment.ImageUrl)
     {
       SetId(comment.Id);
     }

@@ -14,9 +14,9 @@ namespace BusinessLogic.Comments
       _ratingRepo = ratingRepo;
     }
 
-    public Comment Create(int userId, int postId, string content)
+    public Comment Create(int userId, int postId, string text, string imageUrl)
     {
-      var comment = new Comment(postId, userId, content);
+      var comment = new Comment(postId, userId, text, imageUrl);
       _commentRepo.Save(comment);
       return comment;
     }

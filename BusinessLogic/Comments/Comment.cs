@@ -8,19 +8,21 @@ namespace BusinessLogic.Comments
     public int UserId;
     public int PostId;
 
-    public string Content;
+    public string Text;
+    public string ImageUrl;
 
     public DateTime CreateTime;
     public DateTime UpdateTime;
 
     public bool IsDeleted;
 
-    public Comment(int userId, int postId, string content)
+    public Comment(int userId, int postId, string text, string imageUrl)
     {
       UserId = userId;
       PostId = postId;
 
-      Content = content;
+      Text = text;
+      ImageUrl = imageUrl;
 
       CreateTime = DateTime.UtcNow;
       UpdateTime = DateTime.UtcNow;
@@ -28,7 +30,7 @@ namespace BusinessLogic.Comments
 
     public void Update(string content)
     {
-      Content = content;
+      Text = content;
     }
 
     public void Delete()

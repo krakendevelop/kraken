@@ -33,10 +33,10 @@ namespace BusinessLogic.Posts
       CommunityId = communityId;
     }
 
-    public void Update(string title, string content)
+    public void Update(string text, string imageUrl)
     {
-      Text = title;
-      ImageUrl = content;
+      Text = text;
+      ImageUrl = imageUrl;
       UpdateTime = DateTime.UtcNow;
     }
 

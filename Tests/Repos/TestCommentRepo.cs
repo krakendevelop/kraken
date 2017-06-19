@@ -29,7 +29,7 @@ namespace Tests.Repos
         var postId = i % 50;
         string content = $"This is a comment with Id {_lastCommentId} for post {postId}";
 
-        var comment = new Comment(0, postId, content);
+        var comment = new Comment(0, postId, content, null);
         comment.SetId(_lastCommentId);
         _comments.Add(comment);
       }
@@ -45,7 +45,7 @@ namespace Tests.Repos
     public void Update(int id, Comment comment)
     {
       var commentToUpdate = _comments.Single(c => c.Id == id);
-      commentToUpdate.Update(comment.Content);
+      commentToUpdate.Update(comment.Text);
     }
 
     public Comment Read(int id)
