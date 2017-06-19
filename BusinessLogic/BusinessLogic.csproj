@@ -60,7 +60,12 @@
     <Compile Include="Comments\CommentManager.cs" />
     <Compile Include="Comments\CommentRepo.cs" />
     <Compile Include="Comments\ICommentRepo.cs" />
-    <Compile Include="IEntity.cs" />
+    <Compile Include="Communities\Community.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Communities\CommunityManager.cs" />
+    <Compile Include="Communities\CommunitySubscription.cs" />
+    <Compile Include="Communities\ICommunityRepo.cs" />
+    <Compile Include="Communities\ICommunitySubscriptionRepo.cs" />
     <Compile Include="Posts\IPostRepo.cs" />
     <Compile Include="Posts\Post.cs" />
     <Compile Include="Posts\PostManager.cs" />
@@ -76,6 +81,9 @@
     <Compile Include="Users\Auth\AuthUserRepo.cs" />
     <Compile Include="Users\Auth\IAuthUserRepo.cs" />
     <Compile Include="Users\Auth\UserRole.cs" />
+    <Compile Include="Users\Friends\Friendship.cs" />
+    <Compile Include="Users\Friends\FriendshipManager.cs" />
+    <Compile Include="Users\Friends\IFriendshipRepo.cs" />
     <Compile Include="Users\IUserRepo.cs" />
     <Compile Include="Users\UserRepo.cs" />
     <Compile Include="Users\User.cs" />

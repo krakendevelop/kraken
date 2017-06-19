@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace BusinessLogic.Ratings
 {
-  public class Rating : IEntity
+  public class Rating : BaseEntity
   {
     public int Id { get; set; }
 

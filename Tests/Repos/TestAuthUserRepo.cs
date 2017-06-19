@@ -18,11 +18,11 @@ namespace Tests.Repos
 
     private void InitUsers()
     {
-      var user = new AuthUser("user", "user@gmail.com", "user123", UserRole.User)
-        .SetId(_lastId++);
+      var user = new AuthUser("user", "user@gmail.com", "user123", UserRole.User);
+      user.SetId(_lastId++);
 
-      var admin = new AuthUser("admin", "admin@gmail.com", "admin123", UserRole.Admin)
-        .SetId(_lastId++);
+      var admin = new AuthUser("admin", "admin@gmail.com", "admin123", UserRole.Admin);
+      admin.SetId(_lastId++);
       _authUsers.Add(user);
       _authUsers.Add(admin);
     }

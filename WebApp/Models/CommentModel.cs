@@ -10,7 +10,7 @@ namespace WebApp.Models
     public CommentModel(Comment comment)
       : base(comment.UserId, comment.PostId, comment.Content)
     {
-      Id = comment.Id;
+      SetId(comment.Id);
     }
   }
 }

@@ -3,36 +3,40 @@ using Common.Exceptions;
 
 namespace BusinessLogic.Posts
 {
-  public class Post : IEntity
+  public class Post : BaseEntity
   {
-    // todo victor: come up with a good way of updating Id upon save
-    public int Id { get; set; }
+    public int UserId { get; private set; }
+    public int? CommunityId { get; private set; }
 
-    public int UserId;
+    public string Text { get; private set; }
+    public string ImageUrl { get; private set; }
 
-    public string Title;
-    public string Content;
+    public DateTime CreateTime { get; private set; }
+    public DateTime UpdateTime { get; private set; }
 
-    public DateTime CreateTime;
-    public DateTime UpdateTime;
+    public bool IsDeleted { get; private set; }
 
-    public bool IsDeleted;
-
-    public Post(int userId, string title, string content)
+    public Post(int userId, string text, string imageUrl)
     {
       UserId = userId;
 
-      Title = title;
-      Content = content;
+      Text = text;
+      ImageUrl = imageUrl;
 
       CreateTime = DateTime.UtcNow;
       UpdateTime = DateTime.UtcNow;
     }
 
+    public Post(int userId, string text, string imageUrl, int communityId)
+      : this(userId, text, imageUrl)
+    {
+      CommunityId = communityId;
+    }
+
     public void Update(string title, string content)
     {
-      Title = title;
-      Content = content;
+      Text = title;
+      ImageUrl = content;
       UpdateTime = DateTime.UtcNow;
     }
 

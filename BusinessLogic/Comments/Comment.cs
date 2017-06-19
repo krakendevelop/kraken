@@ -3,10 +3,8 @@ using Common.Exceptions;
 
 namespace BusinessLogic.Comments
 {
-  public class Comment : IEntity
+  public class Comment : BaseEntity
   {
-    public int Id { get; set; }
-
     public int UserId;
     public int PostId;
 

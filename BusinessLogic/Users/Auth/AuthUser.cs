@@ -1,12 +1,9 @@
 ﻿using System;
-using Common.Exceptions;
 
 namespace BusinessLogic.Users.Auth
 {
-  public class AuthUser : IEntity
+  public class AuthUser : BaseEntity
   {
-    public int Id { get; private set; } // UserId is always equal to AuthUserId
-
     public string Username;
     public string Email;
     public string Password;
@@ -25,15 +22,6 @@ namespace BusinessLogic.Users.Auth
     {
       Username = username;
       Password = password;
-    }
-
-    public AuthUser SetId(int id)
-    {
-      if (Id != 0)
-        throw new KrakenException("Unable to set Id because it was not empty");
-
-      Id = id;
-      return this;
     }
 
     public AuthUser HideSensativeData()

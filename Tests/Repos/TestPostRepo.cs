@@ -45,7 +45,7 @@ namespace Tests.Repos
       for (int i = 1; i < 5000; i++)
       {
         var post = new Post(1, "Post title number " + i, images[i % images.Count]);
-        post.Id = i;
+        post.SetId(i);
         _posts.Add(post);
         _lastPostId = i;
       }
@@ -53,7 +53,7 @@ namespace Tests.Repos
 
     public int Save(Post post)
     {
-      post.Id = _lastPostId++;
+      post.SetId(_lastPostId++);
       _posts.Add(post);
       Logger.DebugFormat("Saved post: {0}", post);
       return _lastPostId;
@@ -62,7 +62,7 @@ namespace Tests.Repos
     public void Update(int id, Post post)
     {
       var postToUpdate = _posts.Single(p => p.Id == id);
-      postToUpdate.Update(post.Title, post.Content);
+      postToUpdate.Update(post.Text, post.ImageUrl);
 
       Logger.DebugFormat("Updated post {0} with: {1}", post.Id, post);
     }

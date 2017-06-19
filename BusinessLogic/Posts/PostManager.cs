@@ -28,7 +28,8 @@ namespace BusinessLogic.Posts
 
       Logger.DebugFormat("Creating post: {0}", post.ToJson());
 
-      post.Id = _postRepo.Save(post);
+      var id = _postRepo.Save(post);
+      post.SetId(id);
 
       return post;
     }

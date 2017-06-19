@@ -11,9 +11,9 @@ namespace WebApp.Models
     public List<CommentModel> Comments { get; set; }
 
     public PostModel(Post post)
-      : base(post.UserId, post.Title, post.Content)
+      : base(post.UserId, post.Text, post.ImageUrl)
     {
-      Id = post.Id;
+      SetId(post.Id);
     }
   }
 }

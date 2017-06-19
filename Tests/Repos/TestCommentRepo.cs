@@ -30,14 +30,14 @@ namespace Tests.Repos
         string content = $"This is a comment with Id {_lastCommentId} for post {postId}";
 
         var comment = new Comment(0, postId, content);
-        comment.Id = _lastCommentId;
+        comment.SetId(_lastCommentId);
         _comments.Add(comment);
       }
     }
 
     public int Save(Comment comment)
     {
-      comment.Id = ++_lastCommentId;
+      comment.SetId(_lastCommentId);
       _comments.Add(comment);
       return _lastCommentId;
     }
