@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\KrakenException.cs" />
     <Compile Include="Exceptions\KrakenExceptionCode.cs" />
+    <Compile Include="KrakenExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\SerializationExt.cs" />
   </ItemGroup>
