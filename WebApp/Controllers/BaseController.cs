@@ -18,18 +18,18 @@ namespace WebApp.Controllers
     protected static AuthUserManager AuthManager = new AuthUserManager(new TestAuthUserRepo());
     protected static UserManager UserManager = new UserManager(new TestUserRepo());
 
+    protected User CurrentUser { get; private set; }
+
     protected BaseController()
     {
     }
-    
-    protected User CurrentUser { get; private set; }
 
     protected void ProcessSuccesfulLogin(AuthUser authUser)
     {
       var user = UserManager.Get(authUser.Id);
 
       if (user == null)
-        throw new KrakenException("User signed in sucessfully but couln't load their profile Id: " + authUser.Id);
+        throw new KrakenException("User signed in sucessfully but couldn't load their profile Id: " + authUser.Id);
 
       CurrentUser = user;
     }

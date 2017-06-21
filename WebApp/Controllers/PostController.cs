@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
+using Common;
 using Common.Exceptions;
 using Common.Serialization;
 using log4net;
@@ -42,26 +43,20 @@ namespace WebApp.Controllers
     {
       var model = new PostModel(post);
 
-      var commentModels = CommentManager
-        .GetAll(post.Id)
-        .Select(CommentController.BuildModel)
-        .ToList();
+      var likes = 0;
+      var dislikes = 0;
 
-      Logger.DebugFormat("Post {0} contains {1} comments", post.Id, commentModels.Count);
-
-      model.Comments = commentModels; // todo vkoshman not supposed to be here
-      model.CommentCount = commentModels.Count; // todo v.koshman better way of counting comments
-
+      // todo vkoshman move switch to extension method?
       var ratings = PostManager.GetRatings(post.Id);
       foreach (var rating in ratings)
       {
         switch (rating.KindId)
         {
           case RatingKindId.Like:
-            model.LikeCount++;
+            likes++;
             break;
           case RatingKindId.Dislike:
-            model.DislikeCount++;
+            dislikes++;
             break;
           default:
             throw new KrakenException(KrakenExceptionCode.Rating_IsUnknown,
@@ -69,7 +64,22 @@ namespace WebApp.Controllers
         }
       }
 
-      return model;
+      var user = UserManager
+        .Get(post.UserId)
+        .AssertNotNull();
+
+      var commentsModel = CommentManager
+        .GetAll(post.Id)
+        .Select(CommentController.BuildModel)
+        .ToList();
+
+      Logger.DebugFormat("Post {0}(UserId:{1}; {2}l/{3}d) contains {4} comments",
+        post.Id, post.UserId, likes, dislikes, commentsModel.Count);
+
+      return model
+        .FillUpCommentsModel(commentsModel)
+        .FillUpUserModel(new PartialUserModel(user))
+        .FillUpRatings(likes, dislikes);
     }
 
     public ActionResult Like(int postId)

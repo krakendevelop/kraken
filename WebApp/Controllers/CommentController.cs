@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using BusinessLogic.Comments;
 using BusinessLogic.Ratings;
+using Common;
 using Common.Exceptions;
 using Common.Serialization;
 using log4net;
@@ -31,16 +31,18 @@ namespace WebApp.Controllers
     {
       var model = new CommentModel(comment);
 
+      var likes = 0;
+      var dislikes = 0;
       var ratings = CommentManager.GetRatings(comment.Id);
       foreach (var rating in ratings)
       {
         switch (rating.KindId)
         {
           case RatingKindId.Like:
-            model.LikeCount++;
+            likes++;
             break;
           case RatingKindId.Dislike:
-            model.DislikeCount++;
+            dislikes++;
             break;
           default:
             throw new KrakenException(KrakenExceptionCode.Rating_IsUnknown,
@@ -48,7 +50,13 @@ namespace WebApp.Controllers
         }
       }
 
-      return model;
+      var user = UserManager
+        .Get(comment.UserId)
+        .AssertNotNull();
+
+      return model
+        .FillUpUserModel(new PartialUserModel(user))
+        .FillUpRatings(likes, dislikes);
     }
   }
 }
