@@ -22,9 +22,9 @@ namespace BusinessLogic.Posts
       Logger.DebugFormat("Initialized with {0}, {1}", postRepo, ratingRepo);
     }
 
-    public Post Create(int userId, string title, string content)
+    public Post Create(int userId, string text, string imageUrl)
     {
-      var post = new Post(userId, title, content);
+      var post = new Post(userId, text, imageUrl);
 
       Logger.DebugFormat("Creating post: {0}", post.ToJson());
 

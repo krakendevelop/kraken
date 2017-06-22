@@ -1,20 +1,24 @@
 ﻿using System;
 using Common.Exceptions;
+using Newtonsoft.Json;
 
 namespace BusinessLogic.Comments
 {
   public class Comment : BaseEntity
   {
-    public int UserId;
-    public int PostId;
+    public int UserId { get; private set; }
+    public int PostId { get; private set; }
+    public int? CommentId { get; private set; }
 
-    public string Text;
-    public string ImageUrl;
+    public string Text { get; private set; }
+    public string ImageUrl { get; private set; }
 
-    public DateTime CreateTime;
-    public DateTime UpdateTime;
+    public DateTime CreateTime { get; private set; }
+    public DateTime UpdateTime { get; private set; }
 
-    public bool IsDeleted;
+    public bool IsDeleted { get; private set; }
+
+    [JsonIgnore] public bool IsReply => CommentId.HasValue;
 
     public Comment(int userId, int postId, string text, string imageUrl)
     {
@@ -26,6 +30,12 @@ namespace BusinessLogic.Comments
 
       CreateTime = DateTime.UtcNow;
       UpdateTime = DateTime.UtcNow;
+    }
+
+    public Comment SetAsReply(int commentId)
+    {
+      CommentId = commentId;
+      return this;
     }
 
     public void Update(string content)

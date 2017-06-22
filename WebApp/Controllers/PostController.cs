@@ -39,6 +39,30 @@ namespace WebApp.Controllers
       return Json(postModels, JsonRequestBehavior.AllowGet);
     }
 
+    [HttpPost]
+    public ActionResult Post(string text, string imageUrl, int? communityId)
+    {
+      Logger.DebugFormat("User {0} requsted to post", CurrentUser.Id);
+      PostManager.Create(CurrentUser.Id, text, imageUrl);
+      return Json(1, JsonRequestBehavior.DenyGet);
+    }
+
+    [HttpPost]
+    public ActionResult Like(int postId)
+    {
+      Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUser.Id, postId);
+      PostManager.Like(CurrentUser.Id, postId);
+      return Json(1, JsonRequestBehavior.DenyGet);
+    }
+
+    [HttpPost]
+    public ActionResult Dislike(int postId)
+    {
+      Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUser.Id, postId);
+      PostManager.Dislike(CurrentUser.Id, postId);
+      return Json(1, JsonRequestBehavior.DenyGet);
+    }
+
     private static PostModel BuildModel(Post post)
     {
       var model = new PostModel(post);
@@ -80,20 +104,6 @@ namespace WebApp.Controllers
         .FillUpCommentsModel(commentsModel)
         .FillUpUserModel(new PartialUserModel(user))
         .FillUpRatings(likes, dislikes);
-    }
-
-    public ActionResult Like(int postId)
-    {
-      Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUser.Id, postId);
-      PostManager.Like(CurrentUser.Id, postId);
-      return Json(1, JsonRequestBehavior.AllowGet);
-    }
-
-    public ActionResult Dislike(int postId)
-    {
-      Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUser.Id, postId);
-      PostManager.Dislike(CurrentUser.Id, postId);
-      return Json(1, JsonRequestBehavior.AllowGet);
     }
   }
 }
