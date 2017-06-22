@@ -13,7 +13,6 @@ namespace BusinessLogic.Comments
       _commentRepo = commentRepo;
       _ratingRepo = ratingRepo;
     }
-    
 
     public Comment Create(int userId, int postId, string text, string imageUrl, int? commentId = null)
     {

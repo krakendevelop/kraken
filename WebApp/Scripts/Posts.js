@@ -42,7 +42,7 @@ function getData() {
 
         post.LikeCount = ko.observable(post.LikeCount);
         post.DislikeCount = ko.observable(post.DislikeCount);
-        post.CommentCount = ko.observable(post.CommentCount);
+        post.CommentCount = ko.observable(post.CommentCount); // todo vkoshman fix this
 
         posts.push(post);
       }

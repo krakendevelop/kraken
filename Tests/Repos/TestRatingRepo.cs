@@ -41,7 +41,7 @@ namespace Tests.Repos
         var targetKind = i % 3 == 0 && DateTime.UtcNow.Ticks % 3 == 0 ? RatingTargetKindId.Post : RatingTargetKindId.Comment;
 
         var rating = new Rating(0, kind, targetKind, targetId);
-        rating.Id = _lastId;
+        rating.SetId(_lastId);
         _ratings.Add(rating);
       }
     }
@@ -55,7 +55,7 @@ namespace Tests.Repos
 
       if (existingRating == null)
       {
-        rating.Id = ++_lastId;
+        rating.SetId(++_lastId);
         _ratings.Add(rating);
         
         Logger.DebugFormat("Rating for {0} with Id {1} by User {2} does not exist, saving: {3}",

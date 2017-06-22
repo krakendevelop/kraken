@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System;
+using System.Runtime.InteropServices.ComTypes;
 using Common.Exceptions;
 
 namespace Common
@@ -19,6 +20,12 @@ namespace Common
         throw new KrakenException("Object is null");
 
       throw new KrakenException(string.Format(errMsg, args));
+    }
+
+    public static T ExecuteIfPresent<T>(this T obj, Action action)
+    {
+      action.Invoke();
+      return obj;
     }
 
     public static int AssertJustOne(this int value)

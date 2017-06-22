@@ -6,8 +6,6 @@ namespace BusinessLogic.Ratings
 {
   public class Rating : BaseEntity
   {
-    public int Id { get; set; }
-
     public int UserId { get; private set; }
     public RatingKindId KindId { get; private set; }
     public RatingTargetKindId TargetKindId { get; private set; }

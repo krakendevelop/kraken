@@ -4,11 +4,11 @@ namespace BusinessLogic.Users.Auth
 {
   public class AuthUser : BaseEntity
   {
-    public string Username;
-    public string Email;
-    public string Password;
-    public DateTime RegistrationDate;
-    public UserRole Role;
+    public string Username { get; private set; }
+    public string Email { get; private set; }
+    public string Password { get; private set; }
+    public DateTime RegistrationDate { get; private set; }
+    public UserRole Role { get; private set; }
 
     public AuthUser(string username, string email, string password, UserRole role)
     {

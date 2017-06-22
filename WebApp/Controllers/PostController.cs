@@ -68,26 +68,12 @@ namespace WebApp.Controllers
     {
       var model = new PostModel(post);
 
-      var likes = 0;
+      int likes;
       var dislikes = 0;
-
-      // todo vkoshman move switch to extension method?
-      var ratings = PostManager.GetRatings(post.Id);
-      foreach (var rating in ratings)
-      {
-        switch (rating.KindId)
-        {
-          case RatingKindId.Like:
-            likes++;
-            break;
-          case RatingKindId.Dislike:
-            dislikes++;
-            break;
-          default:
-            throw new KrakenException(KrakenExceptionCode.Rating_IsUnknown,
-              "Rating is not supposed to be unknown at this point");
-        }
-      }
+      
+      PostManager
+        .GetRatings(post.Id)
+        .CalcRatings(out likes, out dislikes);
 
       var user = UserManager
         .Get(post.UserId)

@@ -16,17 +16,7 @@ namespace BusinessLogic.Users
     public User Create(AuthUser authUser, string imageUrl,
       string firstName, string lastName, DateTime? birthDate, bool? sex)
     {
-      var user = new User(authUser)
-      {
-        ImageUrl = imageUrl,
-        RegistrationDate = DateTime.UtcNow,
-        ProfileUpdateDate = DateTime.UtcNow,
-
-        FirstName = firstName,
-        LastName = lastName,
-        BirthDate = birthDate,
-        Sex = sex
-      };
+      var user = new User(authUser, imageUrl, firstName, lastName, birthDate, sex);
 
       var id = _userRepo.Save(user);
       user.SetId(id);

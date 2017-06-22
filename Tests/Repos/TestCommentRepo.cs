@@ -45,7 +45,7 @@ namespace Tests.Repos
     public void Update(int id, Comment comment)
     {
       var commentToUpdate = _comments.Single(c => c.Id == id);
-      commentToUpdate.Update(comment.Text);
+      commentToUpdate.Update(comment.Text, commentToUpdate.ImageUrl);
     }
 
     public Comment Read(int id)

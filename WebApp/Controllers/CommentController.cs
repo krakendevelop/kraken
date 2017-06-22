@@ -55,24 +55,12 @@ namespace WebApp.Controllers
     {
       var model = new CommentModel(comment);
 
-      var likes = 0;
-      var dislikes = 0;
-      var ratings = CommentManager.GetRatings(comment.Id);
-      foreach (var rating in ratings)
-      {
-        switch (rating.KindId)
-        {
-          case RatingKindId.Like:
-            likes++;
-            break;
-          case RatingKindId.Dislike:
-            dislikes++;
-            break;
-          default:
-            throw new KrakenException(KrakenExceptionCode.Rating_IsUnknown,
-              "Rating is not supposed to be unknown at this point");
-        }
-      }
+      int likes;
+      int dislikes;
+
+      CommentManager
+        .GetRatings(comment.Id)
+        .CalcRatings(out likes, out dislikes);
 
       var user = UserManager
         .Get(comment.UserId)
