@@ -7,7 +7,6 @@ namespace WebApp.Models
   {
     public int LikeCount { get; private set; }
     public int DislikeCount { get; private set; }
-    public int CommentCount { get; private set; }
     public List<CommentModel> CommentsModel { get; private set; }
     public PartialUserModel UserModel { get; private set; }
 

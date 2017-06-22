@@ -10,7 +10,7 @@
     <footer class="post-footer">
       <span class="post-meta">
         <a href="#" class="post-meta-link" target="_blank" data-bind="text: post.LikeCount() - post.DislikeCount(), attr: { id: 'points' + post.Id }"></a>
-        <a href="#" class="post-meta-link" target="_blank" data-bind="text: post.CommentCount(), attr: { id: 'comments' + post.Id }"></a>
+        <a href="#" class="post-meta-link" target="_blank" data-bind="text: post.CommentsModel().Count, attr: { id: 'comments' + post.Id }"></a>
       </span>
       <span class="post-actions">
         <button class="button post-actions-button" data-bind="click: likePost.bind($data, post)">Like</button>

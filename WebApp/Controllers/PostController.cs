@@ -16,7 +16,8 @@ namespace WebApp.Controllers
 
     public ActionResult Get(int postId)
     {
-      Logger.DebugFormat("User {0} requested post with Id {1}", "Anonymous", postId);
+      Logger.DebugFormat("User {0} requested post with Id {1}",
+        CurrentUser?.Id.ToString() ?? "Anomymous", postId);
 
       var post = PostManager.Get(postId);
       var model = BuildModel(post);
@@ -28,7 +29,7 @@ namespace WebApp.Controllers
     public ActionResult GetNext(int pageIndex, int pageSize)
     {
       Logger.DebugFormat("User {0} requested posts for pageIndex: {1} and size: {2}",
-        "Anonymous", pageIndex, pageSize);
+        CurrentUser?.Id.ToString() ?? "Anomymous", pageIndex, pageSize);
 
       var postModels = PostManager
         .GetAll(pageIndex * pageSize, pageSize)

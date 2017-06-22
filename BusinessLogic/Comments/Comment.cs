@@ -38,9 +38,15 @@ namespace BusinessLogic.Comments
       return this;
     }
 
-    public void Update(string content)
+    public void Update(string text, string imageUrl)
     {
-      Text = content;
+      if (text != null)
+        Text = text;
+
+      if (imageUrl != null)
+        ImageUrl = imageUrl;
+
+      UpdateTime = DateTime.UtcNow;
     }
 
     public void Delete()

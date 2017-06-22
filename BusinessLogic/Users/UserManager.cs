@@ -1,5 +1,4 @@
 ﻿using System;
-using BusinessLogic.Communities;
 using BusinessLogic.Users.Auth;
 using Common.Exceptions;
 
