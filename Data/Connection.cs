@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using Common.Exceptions;
-using MySql.Data.MySqlClient;
 
 namespace Data
 {
   internal class Connection : IDisposable
   {
-    private MySqlConnection _connection;
+    public SqlConnection SqlConnection { get; private set; }
 
-    internal Connection()
+    internal Connection(string connString)
     {
-      _connection = new MySqlConnection("");
+      SqlConnection = new SqlConnection(connString);
     }
 
     internal void Open()
     {
-      if (_connection.State == ConnectionState.Closed)
-        _connection.Open();
+      if (SqlConnection.State == ConnectionState.Closed)
+        SqlConnection.Open();
 
-      if (_connection.State != ConnectionState.Open)
-        throw new KrakenException("Unable to open MySql connection");
+      if (SqlConnection.State != ConnectionState.Open)
+        throw new KrakenException("Unable to open connection");
     }
 
     public void Dispose()
     {
-      _connection.Close();
-      _connection.Dispose();
-      _connection = null;
+      SqlConnection.Close();
+      SqlConnection.Dispose();
+      SqlConnection = null;
 
       GC.SuppressFinalize(this);
     }

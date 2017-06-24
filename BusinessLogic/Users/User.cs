@@ -23,9 +23,16 @@ namespace BusinessLogic.Users
       BirthDate = birthDate;
       Sex = sex;
 
-      ProfileUpdateDate = DateTime.UtcNow;
+      ProfileUpdateDate = RegistrationDate;
 
       HideSensativeData();
+    }
+
+    public User Delete()
+    {
+      IsDeleted = true;
+      ProfileUpdateDate = DateTime.Now;
+      return this;
     }
   }
 }

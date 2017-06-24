@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Data.SqlClient;
 using Common.Exceptions;
-using MySql.Data.MySqlClient;
 
 namespace Data
 {
   internal class Command : IDisposable
   {
-    private MySqlCommand _command;
+    private SqlCommand _command;
+    private Connection _connection;
 
-    internal Command()
+    internal Command(Connection connection)
     {
-      _command = new MySqlCommand();
+      _connection = connection;
+      _command = new SqlCommand
+      {
+        Connection = connection.SqlConnection
+      };
     }
 
     internal void SetQuery(string query)
@@ -23,7 +28,7 @@ namespace Data
 
     internal void SetParam(string name, object value)
     {
-      _command.Parameters.AddWithValue(name, value);
+      _command.Parameters.AddWithValue(name, value ?? DBNull.Value);
     }
 
     internal int Execute()
@@ -31,7 +36,7 @@ namespace Data
       return _command.ExecuteNonQuery();
     }
 
-    internal T ExecuteReader<T>(Func<MySqlDataReader, T> readFunc)
+    internal T ExecuteReader<T>(Func<SqlDataReader, T> readFunc)
     {
       var reader = _command.ExecuteReader();
       return readFunc(reader);

@@ -10,7 +10,7 @@ namespace BusinessLogic.Posts
     {
       using (var cx = new DataContext())
       {
-        return cx.Query("INSERT INTO `Posts`(`Id`, `UserId`, `Data`) VALUES(@Id, @UserId, @Data)")
+        return cx.Query("INSERT INTO [Posts]([Id], [UserId], `Data`) VALUES(@Id, @UserId, @Data)")
           .SetParam("@Id", post.Id)
           .SetParam("@UserId", post.UserId)
           .SetParam("@Data", post.ToJson())
@@ -18,11 +18,11 @@ namespace BusinessLogic.Posts
       }
     }
 
-    public void Update(int id, Post post)
+    public int Update(int id, Post post)
     {
       using (var cx = new DataContext())
       {
-        cx.Query("UPDATE `Posts` SET  `UserId`=@UserId, `Data`=@Data")
+        return cx.Query("UPDATE `Posts` SET `UserId`=@UserId, `Data`=@Data")
           .SetParam("@UserId", post.UserId)
           .SetParam("@Data", post.ToJson())
           .Execute();
@@ -37,7 +37,7 @@ namespace BusinessLogic.Posts
           .SetParam("@Id", id)
           .ExecuteReader(reader =>
           {
-            var data = reader.GetString("Data");
+            var data = reader.GetString(0);
             return data.FromJson<Post>();
           });
       }
@@ -56,7 +56,7 @@ namespace BusinessLogic.Posts
 
             while (reader.Read())
             {
-              var data = reader.GetString("Data");
+              var data = reader.GetString(0);
               result.Add(data.FromJson<Post>());
             }
 

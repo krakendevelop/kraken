@@ -54,6 +54,10 @@
       <Project>{ACC2E152-BE8D-4819-B1B9-D5345274DA00}</Project>
       <Name>BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tests\Tests.csproj">
+      <Project>{A5AE2784-7513-4138-9E53-4F4D5829A25A}</Project>
+      <Name>Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

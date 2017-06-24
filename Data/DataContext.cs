@@ -1,5 +1,6 @@
 ﻿using System;
-using MySql.Data.MySqlClient;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace Data
 {
@@ -10,8 +11,8 @@ namespace Data
 
     public DataContext()
     {
-      _command = new Command();
-      _connection = new Connection();
+      _connection = new Connection(ConfigurationManager.ConnectionStrings["Kraken"].ToString());
+      _command = new Command(_connection);
     }
 
     public DataContext Query(string query)
@@ -32,7 +33,7 @@ namespace Data
       return _command.Execute();
     }
 
-    public T ExecuteReader<T>(Func<MySqlDataReader, T> readFunc)
+    public T ExecuteReader<T>(Func<SqlDataReader, T> readFunc)
     {
       PreExecute();
       return _command.ExecuteReader(readFunc);

@@ -42,10 +42,11 @@ namespace Tests.Repos
       return _lastCommentId;
     }
 
-    public void Update(int id, Comment comment)
+    public int Update(int id, Comment comment)
     {
       var commentToUpdate = _comments.Single(c => c.Id == id);
       commentToUpdate.Update(comment.Text, commentToUpdate.ImageUrl);
+      return 1;
     }
 
     public Comment Read(int id)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using Common.Exceptions;
 using Newtonsoft.Json;
 
@@ -20,6 +21,17 @@ namespace BusinessLogic.Comments
 
     [JsonIgnore] public bool IsReply => CommentId.HasValue;
 
+    public Comment(int id, int userId, int postId, int? commentId, string text, string imageUrl,
+      DateTime createTime, DateTime updateTime, bool isDeleted)
+      : this(userId, postId, text, imageUrl)
+    {
+      SetId(id);
+      CommentId = commentId;
+      CreateTime = createTime;
+      UpdateTime = updateTime;
+      IsDeleted = isDeleted;
+    }
+
     public Comment(int userId, int postId, string text, string imageUrl)
     {
       UserId = userId;
@@ -32,13 +44,28 @@ namespace BusinessLogic.Comments
       UpdateTime = DateTime.UtcNow;
     }
 
+    public static Comment Read(SqlDataReader reader)
+    {
+      return new Comment(
+        reader.GetInt32(0),
+        reader.GetInt32(1),
+        reader.GetInt32(2),
+        reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
+        reader.IsDBNull(4) ? "" : reader.GetString(4),
+        reader.IsDBNull(5) ? "" : reader.GetString(5),
+        reader.GetDateTime(6),
+        reader.GetDateTime(7),
+        reader.GetBoolean(8)
+      );
+    }
+
     public Comment SetAsReply(int commentId)
     {
       CommentId = commentId;
       return this;
     }
 
-    public void Update(string text, string imageUrl)
+    public Comment Update(string text, string imageUrl)
     {
       if (text != null)
         Text = text;
@@ -47,6 +74,8 @@ namespace BusinessLogic.Comments
         ImageUrl = imageUrl;
 
       UpdateTime = DateTime.UtcNow;
+
+      return this;
     }
 
     public void Delete()

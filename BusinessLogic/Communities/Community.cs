@@ -6,18 +6,26 @@ namespace BusinessLogic.Communities
   {
     public int OwnerUserId { get; private set; }
     public string Name { get; private set; }
-    public string PictureUrl { get; private set; }
+    public string ImageUrl { get; private set; }
     public DateTime CreateTime { get; private set; }
-    public DateTime LastUpdateTime { get; private set; }
+    public DateTime UpdateTime { get; private set; }
+    public bool IsDeleted { get; private set; }
 
-    public Community(int ownerUserId, string name, string pictureUrl)
+    public Community(int ownerUserId, string name, string imageUrl)
     {
       OwnerUserId = ownerUserId;
       Name = name;
-      PictureUrl = pictureUrl;
+      ImageUrl = imageUrl;
 
       CreateTime = DateTime.UtcNow;
-      LastUpdateTime = DateTime.UtcNow;
+      UpdateTime = DateTime.UtcNow;
+    }
+
+    public Community Delete()
+    {
+      IsDeleted = true;
+      UpdateTime = DateTime.UtcNow;
+      return this;
     }
   }
 }

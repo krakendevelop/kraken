@@ -1,6 +1,8 @@
-﻿namespace BusinessLogic.Users
+﻿using BusinessLogic.Data;
+
+namespace BusinessLogic.Users
 {
-  public interface IUserRepo
+  public interface IUserRepo : IRepo
   {
     int Save(User user);
     void Update(int id, User user);

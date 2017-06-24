@@ -10,7 +10,7 @@ namespace BusinessLogic.Ratings
     public RatingKindId KindId { get; private set; }
     public RatingTargetKindId TargetKindId { get; private set; }
     public int TargetId { get; private set; }
-    public DateTime Time { get; private set; }
+    public DateTime CreateTime { get; private set; }
 
     [JsonIgnore] public bool IsPostRating => TargetKindId == RatingTargetKindId.Post;
     [JsonIgnore] public bool IsCommentRating => TargetKindId == RatingTargetKindId.Comment;
@@ -24,7 +24,7 @@ namespace BusinessLogic.Ratings
       TargetKindId = targetKindId;
       TargetId = targetId;
 
-      Time = DateTime.UtcNow;
+      CreateTime = DateTime.UtcNow;
     }
 
     public Rating(int userId, RatingTargetKindId targetKindId, int targetId)
@@ -34,7 +34,7 @@ namespace BusinessLogic.Ratings
       TargetKindId = targetKindId;
       TargetId = targetId;
 
-      Time = DateTime.UtcNow;
+      CreateTime = DateTime.UtcNow;
     }
 
     public void SwitchKind()

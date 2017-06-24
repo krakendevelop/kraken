@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using BusinessLogic.Data;
 
 namespace BusinessLogic.Communities
 {
-  public interface ICommunityRepo
+  public interface ICommunityRepo : IRepo
   {
     int Save(Community community);
     Community Read(int communityId);

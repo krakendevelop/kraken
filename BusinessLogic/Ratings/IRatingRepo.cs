@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using BusinessLogic.Data;
 
 namespace BusinessLogic.Ratings
 {
-  public interface IRatingRepo
+  public interface IRatingRepo : IRepo
   {
     int Save(Rating rating);
     void Delete(Rating rating);

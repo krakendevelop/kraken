@@ -59,12 +59,13 @@ namespace Tests.Repos
       return _lastPostId;
     }
 
-    public void Update(int id, Post post)
+    public int Update(int id, Post post)
     {
       var postToUpdate = _posts.Single(p => p.Id == id);
       postToUpdate.Update(post.Text, post.ImageUrl);
 
       Logger.DebugFormat("Updated post {0} with: {1}", post.Id, post);
+      return 1;
     }
 
     public Post Read(int id)
