@@ -86,5 +86,5 @@ GO
 
 use kraken;
 go
-select * from comments;
+SELECT * FROM [Comments] WHERE [PostId]=3
 go

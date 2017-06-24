@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Ratings;
 using Common.Serialization;
 using log4net;
@@ -12,14 +13,22 @@ namespace BusinessLogic.Posts
     private readonly IPostRepo _postRepo;
     private readonly IRatingRepo _ratingRepo;
 
+    private List<int> _trendingPostIds;
+
     public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo)
     {
       Logger.Debug("Initializing...");
 
       _postRepo = postRepo;
       _ratingRepo = ratingRepo;
+      _trendingPostIds = GenerateTrendingPosts();
 
       Logger.DebugFormat("Initialized with {0}, {1}", postRepo, ratingRepo);
+    }
+
+    private List<int> GenerateTrendingPosts()
+    {
+      return Enumerable.Range(0, 1000).ToList();
     }
 
     public Post Create(int userId, string text, string imageUrl)
@@ -46,9 +55,13 @@ namespace BusinessLogic.Posts
       return _postRepo.Read(id);
     }
 
-    public List<Post> GetAll(int idFrom, int count)
+    public List<Post> GetNextTrending(int idFrom, int count)
     {
-      return _postRepo.ReadAll(idFrom, count);
+      var ids = _trendingPostIds
+        .SkipWhile(id => id != idFrom)
+        .Take(count);
+
+      return _postRepo.ReadAll(ids);
     }
 
     #endregion

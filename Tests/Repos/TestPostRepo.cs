@@ -76,14 +76,13 @@ namespace Tests.Repos
       return post;
     }
 
-    public List<Post> ReadAll(int idFrom, int count)
+    public List<Post> ReadAll(IEnumerable<int> ids)
     {
       var posts = _posts
-        .SkipWhile(p => p.Id < idFrom)
-        .Take(count)
+        .Where(p => ids.Contains(p.Id))
         .ToList();
 
-      Logger.DebugFormat("Loaded {0} posts idFrom: {1} count: {2}", posts.Count, idFrom, count);
+      Logger.DebugFormat("Loaded {0} posts: {1}", posts.Count, string.Join(", ", ids));
       return posts;
     }
 

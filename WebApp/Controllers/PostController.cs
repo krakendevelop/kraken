@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
 using Common;
-using Common.Exceptions;
 using Common.Serialization;
 using log4net;
 using WebApp.Models;
@@ -32,7 +31,7 @@ namespace WebApp.Controllers
         CurrentUser?.Id.ToString() ?? "Anomymous", pageIndex, pageSize);
 
       var postModels = PostManager
-        .GetAll(pageIndex * pageSize, pageSize)
+        .GetNextTrending(pageIndex * pageSize, pageSize)
         .Select(BuildModel)
         .ToList();
 

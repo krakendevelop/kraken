@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BusinessLogic.Comments;
 using Common.Serialization;
 using Data;
 
@@ -10,10 +11,16 @@ namespace BusinessLogic.Posts
     {
       using (var cx = new DataContext())
       {
-        return cx.Query("INSERT INTO [Posts]([Id], [UserId], `Data`) VALUES(@Id, @UserId, @Data)")
-          .SetParam("@Id", post.Id)
+        return cx.Query("INSERT INTO [Posts]" +
+          "([UserId], [CommunityId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
+          "VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
           .SetParam("@UserId", post.UserId)
-          .SetParam("@Data", post.ToJson())
+          .SetParam("@CommunityId", post.CommunityId)
+          .SetParam("@Text", post.Text)
+          .SetParam("@ImageUrl", post.ImageUrl)
+          .SetParam("@CreateTime", post.CreateTime)
+          .SetParam("@UpdateTime", post.UpdateTime)
+          .SetParam("@IsDeleted", post.IsDeleted)
           .Execute();
       }
     }
@@ -22,9 +29,17 @@ namespace BusinessLogic.Posts
     {
       using (var cx = new DataContext())
       {
-        return cx.Query("UPDATE `Posts` SET `UserId`=@UserId, `Data`=@Data")
+        return cx.Query("UPDATE [Posts]" +
+          " SET [UserId]=@UserId, [CommunityId]=@CommunityId, [Text]=@Text, [ImageUrl]=@ImageUrl, [CreateTime]=@CreateTime," +
+          "[UpdateTime]=@UpdateTime, [IsDeleted]=@IsDeleted WHERE [Id]=@Id")
+          .SetParam("@Id", post.Id)
           .SetParam("@UserId", post.UserId)
-          .SetParam("@Data", post.ToJson())
+          .SetParam("@CommunityId", post.CommunityId)
+          .SetParam("@Text", post.Text)
+          .SetParam("@ImageUrl", post.ImageUrl)
+          .SetParam("@CreateTime", post.CreateTime)
+          .SetParam("@UpdateTime", post.UpdateTime)
+          .SetParam("@IsDeleted", post.IsDeleted)
           .Execute();
       }
     }
@@ -33,34 +48,35 @@ namespace BusinessLogic.Posts
     {
       using (var cx = new DataContext())
       {
-        return cx.Query("SELECT `Data` FROM `Posts` WHERE `Id`=@Id")
+        return cx.Query("SELECT * FROM [Posts] WHERE [Id]=@Id")
           .SetParam("@Id", id)
-          .ExecuteReader(reader =>
+          .ExecuteReader(r =>
           {
-            var data = reader.GetString(0);
-            return data.FromJson<Post>();
+            r.Read();
+            return Post.Read(r);
           });
       }
     }
 
-    public List<Post> ReadAll(int idFrom, int count)
+    public List<Post> ReadAll(IEnumerable<int> ids)
     {
       using (var cx = new DataContext())
       {
-        return cx.Query("SELECT TOP @Count `Data` FROM `Posts` WHERE `Id`>@IdFrom")
-          .SetParam("@Count", count)
-          .SetParam("@IdFrom", idFrom)
+        return cx.Query("SELECT * FROM [Posts] WHERE [Id] IN (@Ids)")
+          .SetParam("@Ids", string.Join(",", ids))
           .ExecuteReader(reader =>
           {
-            var result = new List<Post>();
+            List<Post> posts = null;
 
             while (reader.Read())
             {
-              var data = reader.GetString(0);
-              result.Add(data.FromJson<Post>());
+              if (posts == null)
+                posts = new List<Post>();
+
+              posts.Add(Post.Read(reader));
             }
 
-            return result;
+            return posts;
           });
       }
     }

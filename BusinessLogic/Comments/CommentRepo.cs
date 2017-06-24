@@ -70,7 +70,7 @@ namespace BusinessLogic.Comments
             while (reader.Read())
             {
               if (comments == null)
-                comments = new List<Comment>(reader.VisibleFieldCount);
+                comments = new List<Comment>();
 
               comments.Add(Comment.Read(reader));
             }
