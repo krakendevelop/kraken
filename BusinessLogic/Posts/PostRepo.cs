@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using BusinessLogic.Comments;
-using Common.Serialization;
 using Data;
 
 namespace BusinessLogic.Posts
@@ -50,10 +48,28 @@ namespace BusinessLogic.Posts
       {
         return cx.Query("SELECT * FROM [Posts] WHERE [Id]=@Id")
           .SetParam("@Id", id)
-          .ExecuteReader(r =>
+          .ExecuteReader(r => !r.Read() ? null : Post.Read(r));
+      }
+    }
+
+    public List<Post> ReadAll()
+    {
+      using (var cx = new DataContext())
+      {
+        return cx.Query("SELECT * FROM [Posts]")
+          .ExecuteReader(reader =>
           {
-            r.Read();
-            return Post.Read(r);
+            List<Post> posts = null;
+
+            while (reader.Read())
+            {
+              if (posts == null)
+                posts = new List<Post>();
+
+              posts.Add(Post.Read(reader));
+            }
+
+            return posts;
           });
       }
     }

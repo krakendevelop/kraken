@@ -127,6 +127,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jQuery\jquery.mousewheel-3.0.6.pack.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.js" />
@@ -134,8 +135,21 @@
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\Posts.js" />
-    <Content Include="Style\Normalize.css" />
-    <Content Include="Style\Stylesheet.css" />
+    <Content Include="Style\css\font-awesome.min.css" />
+    <Content Include="Style\css\main.css" />
+    <Content Include="Style\fonts\fontawesome-webfont.svg" />
+    <Content Include="Style\grunt-settings.js" />
+    <Content Include="Style\Gruntfile.js" />
+    <Content Include="Style\images\avatar01.jpg" />
+    <Content Include="Style\images\banner01.jpg" />
+    <Content Include="Style\images\image01.jpg" />
+    <Content Include="Style\images\info.txt" />
+    <Content Include="Style\images\mercedes_benz_85-wallpaper-1920x1080.jpg" />
+    <Content Include="Style\images\Без-имени-2.jpg" />
+    <Content Include="Style\sourceimages\avatar01.jpg" />
+    <Content Include="Style\sourceimages\banner01.jpg" />
+    <Content Include="Style\sourceimages\image01.jpg" />
+    <Content Include="Style\sourceimages\info.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +182,23 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Post\PostPreviewTemplate.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <None Include="Style\css\main.min.map" />
+    <Content Include="Style\package.json" />
+    <Content Include="Style\fonts\fontawesome-webfont.eot" />
+    <Content Include="Style\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Style\fonts\fontawesome-webfont.woff" />
+    <Content Include="Style\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Style\fonts\FontAwesome.otf" />
+    <Content Include="Style\scss\main.scss" />
+    <Content Include="Style\scss\base\_forms.scss" />
+    <Content Include="Style\scss\base\_functions.scss" />
+    <Content Include="Style\scss\base\_helpers.scss" />
+    <Content Include="Style\scss\base\_mixins.scss" />
+    <Content Include="Style\scss\base\_reset.scss" />
+    <Content Include="Style\scss\base\_typography.scss" />
+    <Content Include="Style\scss\base\_variables.scss" />
+    <Content Include="Style\scss\vendors\_include-media.scss" />
+    <Content Include="Style\scss\vendors\_normalize.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

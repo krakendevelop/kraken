@@ -8,6 +8,7 @@ namespace BusinessLogic.Posts
     int Save(Post post);
     int Update(int id, Post post);
     Post Read(int id);
+    List<Post> ReadAll();
     List<Post> ReadAll(IEnumerable<int> ids);
     void Delete(int id);
   }

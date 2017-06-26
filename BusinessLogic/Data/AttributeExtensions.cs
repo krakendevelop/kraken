@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BusinessLogic.Posts
+namespace BusinessLogic.Data
 {
   public static class AttributeExtensions
   {

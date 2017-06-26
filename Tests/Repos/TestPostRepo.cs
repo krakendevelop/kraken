@@ -91,5 +91,10 @@ namespace Tests.Repos
       var deletedCount = _posts.RemoveAll(p => p.Id == id);
       Logger.DebugFormat("Deleted {0} posts by Id: {1}", deletedCount, id);
     }
+
+    public List<Post> ReadAll()
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }

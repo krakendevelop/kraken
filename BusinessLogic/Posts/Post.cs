@@ -43,12 +43,12 @@ namespace BusinessLogic.Posts
       return new Post(
         reader.GetInt32(0),
         reader.GetInt32(1),
-        reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
+        reader.IsDBNull(2) ? (int?)null : reader.GetInt32(2),
+        reader.IsDBNull(3) ? "" : reader.GetString(3),
         reader.IsDBNull(4) ? "" : reader.GetString(4),
-        reader.IsDBNull(5) ? "" : reader.GetString(5),
+        reader.GetDateTime(5),
         reader.GetDateTime(6),
-        reader.GetDateTime(7),
-        reader.GetBoolean(8)
+        reader.GetBoolean(7)
       );
     }
 

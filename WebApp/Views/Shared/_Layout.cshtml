@@ -1,147 +1,157 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>Sample page</title>
-  <meta name="keywords" content=""/>
-  <meta name="description" content=""/>
-  <link rel="shortcut icon" href="#">
-  <link href="~/Style/Normalize.css" rel="stylesheet">
-  <link href="~/Style/Stylesheet.css" rel="stylesheet">
-  @RenderSection("head", required: false)
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>Memasik</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+  <link media="all" rel="stylesheet" href="~/Style/css/font-awesome.min.css">
+  <link media="all" rel="stylesheet" href="~/Style/css/jquery.fancybox.min.css">
+  <link media="all" rel="stylesheet" href="~/Style/css/animate.css">
+  <link media="all" rel="stylesheet" href="~/Style/css/slick.css">
+  <link media="all" rel="stylesheet" href="~/Style/css/main.css">
 </head>
 <body>
-<div class="page">
-  <header class="page-header">
-    <nav class="header-nav">
-      <ul class="main-navigation">
-        <li class="main-navigation-item">
-          <a class="logo" href="#">Logo</a>
-        </li>
-        <li class="main-navigation-item">
-          <a href="#">Nav item</a>
-        </li>
-        <li class="main-navigation-item main-navigation-selected">
-          <a href="#">Nav item</a>
-        </li>
-        <li class="main-navigation-item">
-          <a href="#">Nav item</a>
-        </li>
-        <li class="main-navigation-item">
-          <a href="#">Nav item</a>
-        </li>
-        <li class="main-navigation-item">
-          <a href="#">Nav item</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-  <section class="container">
-    <main class="main">
-      @RenderBody()
-    </main>
-    <aside class="aside">
-      <nav class="aside-nav">
-        <ul class="aside-menu">
-          <li class="aside-menu-item">
-            <a href="#">Nav item</a>
-          </li>
-          <li class="aside-menu-item">
-            <a href="#">Nav item</a>
-          </li>
-          <li class="aside-menu-item">
-            <a href="#">Nav item</a>
-          </li>
-          <li class="aside-menu-item">
-            <a href="#">Nav item</a>
-          </li>
-          <li class="aside-menu-item">
-            <a href="#">Nav item</a>
-          </li>
-          <li class="aside-menu-item">
-            <a href="#">Nav item</a>
-          </li>
-        </ul>
-      </nav>
-      <section class="aside-content">
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-        <article class="aside-post">
-          <a href="#" class="aside-post-link">
-            <figure class="aside-post-caption">
-              <img src="images/image.jpg" class="aside-post-media" alt="The Pulpit Rock" width="700" height="525">
-              <figcaption class="aside-post-caption-text">Fig1. - The Pulpit Rock, Norway.</figcaption>
-            </figure>
-          </a>
-        </article>
-      </section>
-    </aside>
-  </section>
-  <footer class="footer container">
-    <span>Footer text 2017</span>
-  </footer>
-</div>
+  <<div id="wrapper">
+    <header id="header">
+      <a href="#" class="sidebar-opener"><span>menu</span></a>
+      <div class="logo"><a href="#">LOGO</a></div>
+      <form action="#" class="search-form">
+        <a href="#" class="search-opener"><i class="fa fa-search"></i></a>
+        <div class="slide">
+          <input type="text" placeholder="Search">
+          <button class="btn-search" type="submit">Search</button>
+        </div>
+      </form>
+      <a href="#" class="btn-add-post">ADD POST</a>
+      <div class="profile-menu">
+        <a href="#" class="menu-opener">
+          <span class="name">Viktor</span>
+          <span class="ava"><img src="images/avatar01.jpg" alt="image description"></span>
+        </a>
+        <div class="drop">
+          <ul>
+            <li><a href="#">My Page</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Setings</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="main">
+      <div class="main-row">
+        <div class="left-col col">
+          <!-- left fixed col -->
+          <div class="sidebar">
+            <a href="#" class="sidebar-opener"><span>menu</span></a>
+            <div class="sidebar-holder">
+              <div class="category-box">
+                <h2>Category title</h2>
+                <ul>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                </ul>
+              </div>
+              <div class="category-box">
+                <h2>Category title</h2>
+                <ul>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                </ul>
+              </div>
+              <div class="category-box">
+                <h2>Category title</h2>
+                <ul>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                </ul>
+              </div>
+              <div class="category-box">
+                <h2>Category title</h2>
+                <ul>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                </ul>
+              </div>
+              <div class="category-box">
+                <h2>Category title</h2>
+                <ul>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          @RenderBody()<div class="right-col col">
+            <div class="widget">
+              <h2>Category title</h2>
+              <ul>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+              </ul>
+            </div>
+            <div class="widget">
+              <h2>Category title</h2>
+              <ul>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+              </ul>
+            </div>
+            <div class="widget">
+              <h2>Category title</h2>
+              <ul>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+                <li><a href="#"><i class="fa fa-home"></i> link</a></li>
+              </ul>
+            </div>
+            <div class="widget widget-banner">
+              <a href="#"><img src="images/banner01.jpg" alt="image description"></a>
+            </div>
+            <div class="widget widget-banner">
+              <a href="#"><img src="images/banner01.jpg" alt="image description"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="~/Scripts/jQuery/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="~/Scripts/jQuery/jquery.fancybox.min.js"></script>
+  <script type="text/javascript" src="~/Scripts/jQuery/slick.min.js"></script>
+  <script type="text/javascript" src="~/Scripts/jQuery/jquery.main.js" defer></script>
 </body>
 </html>

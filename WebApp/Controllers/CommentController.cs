@@ -62,12 +62,12 @@ namespace WebApp.Controllers
         .GetRatings(comment.Id)
         .CalcRatings(out likes, out dislikes);
 
-      var user = UserManager
+      /*var user = UserManager
         .Get(comment.UserId)
-        .AssertNotNull();
+        .AssertNotNull();*/
 
       return model
-        .FillUpUserModel(new PartialUserModel(user))
+        //.FillUpUserModel(new PartialUserModel(user))
         .FillUpRatings(likes, dislikes);
     }
   }

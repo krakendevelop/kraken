@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
@@ -18,7 +19,10 @@ namespace WebApp.Controllers
       Logger.DebugFormat("User {0} requested post with Id {1}",
         CurrentUser?.Id.ToString() ?? "Anomymous", postId);
 
-      var post = PostManager.Get(postId);
+      var post = PostManager
+        .Get(postId)
+        .AssertNotNull();
+
       var model = BuildModel(post);
 
       Logger.DebugFormat("Responding with PostModel: {0}", model.ToJson());
@@ -30,8 +34,9 @@ namespace WebApp.Controllers
       Logger.DebugFormat("User {0} requested posts for pageIndex: {1} and size: {2}",
         CurrentUser?.Id.ToString() ?? "Anomymous", pageIndex, pageSize);
 
+      var idFrom = Math.Max(1, pageIndex * pageSize);
       var postModels = PostManager
-        .GetNextTrending(pageIndex * pageSize, pageSize)
+        .GetNextHot(idFrom, pageSize)
         .Select(BuildModel)
         .ToList();
 
@@ -74,9 +79,9 @@ namespace WebApp.Controllers
         .GetRatings(post.Id)
         .CalcRatings(out likes, out dislikes);
 
-      var user = UserManager
+      /*var user = UserManager
         .Get(post.UserId)
-        .AssertNotNull();
+        .AssertNotNull();*/
 
       var commentsModel = CommentManager
         .GetAll(post.Id)
@@ -88,7 +93,7 @@ namespace WebApp.Controllers
 
       return model
         .FillUpCommentsModel(commentsModel)
-        .FillUpUserModel(new PartialUserModel(user))
+        //.FillUpUserModel(new PartialUserModel(user))
         .FillUpRatings(likes, dislikes);
     }
   }

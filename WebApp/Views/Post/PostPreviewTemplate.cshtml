@@ -1,22 +1,33 @@
 ﻿<script type="text/html" id="post-preview-template">
-  <article class="post">
-    <header class="post-header">
-      <h3 class="post-header-text" data-bind="text: post.Text"></h3>
-    </header>
-    <figure class="post-caption">
-      <img class="post-media" alt="The Pulpit Rock" width="700" height="525" data-bind="attr: { src: post.ImageUrl }">
-      <figcaption class="post-caption-data">Fig1. - The Pulpit Rock, Norway.</figcaption>
-    </figure>
-    <footer class="post-footer">
-      <span class="post-meta">
-        <a href="#" class="post-meta-link" target="_blank" data-bind="text: post.LikeCount() - post.DislikeCount(), attr: { id: 'points' + post.Id }"></a>
-        <a href="#" class="post-meta-link" target="_blank" data-bind="text: post.CommentsModel().Count, attr: { id: 'comments' + post.Id }"></a>
-      </span>
-      <span class="post-actions">
-        <button class="button post-actions-button" data-bind="click: likePost.bind($data, post)">Like</button>
-        <button class="button post-actions-button" data-bind="click: dislikePost.bind($data, post)">Dislike</button>
-        <button class="button post-actions-button">Comment</button>
-      </span>
-    </footer>
-  </article>
+  <div class="post">
+    <div class="top-area">
+      <a href="#" class="avatar"><img alt="image description" data-bind="attr: { src: post.ImageUrl }"></a>
+      <div class="holder">
+        <h2>Post title</h2>
+        <time class="date" datetime="2017-06-21">one hour ago</time>
+      </div>
+    </div>
+    <div class="middle-area">
+      <p data-bind="text: post.Text"></p>
+      <a href="#"><img data-bind="attr: { src: post.ImageUrl }" alt="image description"></a>
+    </div>
+    <div class="bottom-area">
+      <div class="rates-area">
+        <strong class="rating"><i class="fa fa-star"></i><span>4.8</span></strong>
+        <ul class="likes">
+          <li><a href="#"><i class="fa fa-thumbs-up"></i>6 805</a></li>
+          <li><a href="#"><i class="fa fa-thumbs-down"></i>597</a></li>
+        </ul>
+      </div>
+      <a href="#" class="comments"><i class="fa fa-comments"></i>Comments</a>
+    </div>
+    <div class="admin-bar">
+      <a href="#" class="admin-bar-opener"><i class="fa fa-cog"></i></a>
+      <ul class="admin-drop">
+        <li><a href="#">Up</a></li>
+        <li><a href="#">Delete</a></li>
+        <li><a href="#">Report</a></li>
+      </ul>
+    </div>
+  </div>
 </script>

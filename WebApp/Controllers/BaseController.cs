@@ -13,7 +13,7 @@ namespace WebApp.Controllers
   {
     private static readonly IRatingRepo RatingRepo = new TestRatingRepo();
 
-    protected static PostManager PostManager = new PostManager(new TestPostRepo(), RatingRepo);
+    protected static PostManager PostManager = new PostManager(new PostRepo(), RatingRepo);
     protected static CommentManager CommentManager = new CommentManager(new TestCommentRepo(), RatingRepo);
     protected static AuthUserManager AuthManager = new AuthUserManager(new TestAuthUserRepo());
     protected static UserManager UserManager = new UserManager(new TestUserRepo());
