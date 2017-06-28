@@ -2,8 +2,6 @@
 using System.Web.Mvc;
 using BusinessLogic.Comments;
 using BusinessLogic.Ratings;
-using Common;
-using Common.Exceptions;
 using Common.Serialization;
 using log4net;
 using WebApp.Models;

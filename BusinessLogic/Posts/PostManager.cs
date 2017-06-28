@@ -45,7 +45,7 @@ namespace BusinessLogic.Posts
       post.SetId(id);
 
       if (_cache.Add(post))
-        throw new KrakenException("Unable to add post " + post.ToJson() + " to chache");
+        throw new KrakenException("Unable to add post " + post.ToJson() + " to cache");
 
       return post;
     }

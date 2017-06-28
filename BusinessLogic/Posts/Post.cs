@@ -76,5 +76,13 @@ namespace BusinessLogic.Posts
 
       return this;
     }
+
+    public Post AlterCreateTime(DateTime newTime)
+    {
+      CreateTime = newTime;
+      UpdateTime = CreateTime;
+
+      return this;
+    }
   }
 }

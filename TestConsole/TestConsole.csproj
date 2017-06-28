@@ -47,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleCommand.cs" />
+    <Compile Include="ConsoleCommandProcessor.cs" />
+    <Compile Include="Download\DownloadedPost.cs" />
+    <Compile Include="Download\DownloadSource.cs" />
+    <Compile Include="Download\RedditDownloader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -58,6 +63,10 @@
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{ACC2E152-BE8D-4819-B1B9-D5345274DA00}</Project>
       <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{FF70E983-9003-430A-A036-34336CC33CC0}</Project>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tests\Tests.csproj">
       <Project>{A5AE2784-7513-4138-9E53-4F4D5829A25A}</Project>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace BusinessLogic.Posts
 {
@@ -19,14 +20,10 @@ namespace BusinessLogic.Posts
     {
       var posts = _repo.ReadAll();
       if (posts == null)
-      {
         return;
-      }
 
       foreach (var post in posts)
-      {
         _postsById.TryAdd(post.Id, post);
-      }
     }
 
     public bool Add(Post post)
@@ -43,6 +40,11 @@ namespace BusinessLogic.Posts
     public Post Update(Post post)
     {
       return _postsById.AddOrUpdate(post.Id, p => post, (i, p) => post);
+    }
+
+    public IEnumerable<Post> EnumeratePosts()
+    {
+      return _postsById.Values;
     }
   }
 }
