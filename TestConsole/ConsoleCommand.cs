@@ -10,7 +10,7 @@ namespace TestConsole
 
     public ConsoleCommand(string text)
     {
-      var tokens = text.Split(new [] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+      var tokens = text.Split(new [] { " " }, StringSplitOptions.RemoveEmptyEntries);
       if (tokens.Length == 0)
         return;
 

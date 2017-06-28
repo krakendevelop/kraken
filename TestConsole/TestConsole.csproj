@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleCommand.cs" />
-    <Compile Include="ConsoleCommandProcessor.cs" />
     <Compile Include="Download\DownloadedPost.cs" />
     <Compile Include="Download\DownloadSource.cs" />
     <Compile Include="Download\RedditDownloader.cs" />

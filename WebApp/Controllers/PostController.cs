@@ -84,7 +84,7 @@ namespace WebApp.Controllers
         .AssertNotNull();*/
 
       var commentsModel = CommentManager
-        .GetAll(post.Id)
+        .GetAllBypostId(post.Id)
         .Select(CommentController.BuildModel)
         .ToList();
 

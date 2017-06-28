@@ -17,7 +17,8 @@ namespace BusinessLogic.Posts
 
     public bool IsDeleted { get; private set; }
 
-    public Post(int id, int userId, int? communityId, string text, string imageUrl, DateTime createTime, DateTime updateTime, bool isDeleted)
+    public Post(int id, int userId, int? communityId, string text, string imageUrl, DateTime createTime,
+      DateTime updateTime, bool isDeleted)
       : this(userId, text, imageUrl)
     {
       SetId(id);
@@ -43,7 +44,7 @@ namespace BusinessLogic.Posts
       return new Post(
         reader.GetInt32(0),
         reader.GetInt32(1),
-        reader.IsDBNull(2) ? (int?)null : reader.GetInt32(2),
+        reader.IsDBNull(2) ? (int?) null : reader.GetInt32(2),
         reader.IsDBNull(3) ? "" : reader.GetString(3),
         reader.IsDBNull(4) ? "" : reader.GetString(4),
         reader.GetDateTime(5),

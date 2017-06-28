@@ -10,8 +10,8 @@ namespace BusinessLogic.Posts
       using (var cx = new DataContext())
       {
         return cx.Query("INSERT INTO [Posts]" +
-          "([UserId], [CommunityId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
-          "VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
+                        "([UserId], [CommunityId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
+                        "VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
           .SetParam("@UserId", post.UserId)
           .SetParam("@CommunityId", post.CommunityId)
           .SetParam("@Text", post.Text)
@@ -28,8 +28,8 @@ namespace BusinessLogic.Posts
       using (var cx = new DataContext())
       {
         return cx.Query("UPDATE [Posts]" +
-          " SET [UserId]=@UserId, [CommunityId]=@CommunityId, [Text]=@Text, [ImageUrl]=@ImageUrl, [CreateTime]=@CreateTime," +
-          "[UpdateTime]=@UpdateTime, [IsDeleted]=@IsDeleted WHERE [Id]=@Id")
+                        " SET [UserId]=@UserId, [CommunityId]=@CommunityId, [Text]=@Text, [ImageUrl]=@ImageUrl, [CreateTime]=@CreateTime," +
+                        "[UpdateTime]=@UpdateTime, [IsDeleted]=@IsDeleted WHERE [Id]=@Id")
           .SetParam("@Id", post.Id)
           .SetParam("@UserId", post.UserId)
           .SetParam("@CommunityId", post.CommunityId)

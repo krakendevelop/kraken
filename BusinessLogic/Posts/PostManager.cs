@@ -9,7 +9,8 @@ namespace BusinessLogic.Posts
 {
   public class PostManager
   {
-    private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    private static readonly ILog Logger =
+      LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     private readonly IPostRepo _postRepo;
     private readonly IRatingRepo _ratingRepo;
@@ -119,7 +120,7 @@ namespace BusinessLogic.Posts
     public Rating Like(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Like, RatingTargetKindId.Post, id);
-      
+
       _ratingRepo.Save(rating);
       return rating;
     }
@@ -132,7 +133,7 @@ namespace BusinessLogic.Posts
     public Rating Dislike(int userId, int id)
     {
       var rating = new Rating(userId, RatingKindId.Dislike, RatingTargetKindId.Post, id);
-      
+
       _ratingRepo.Save(rating);
       return rating;
     }
