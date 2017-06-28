@@ -30,7 +30,7 @@ namespace BusinessLogic.Comments
       _commentRepo.Update(comment.Id, comment);
     }
 
-    public List<Comment> GetAllBypostId(int postId)
+    public List<Comment> GetAllByPostId(int postId)
     {
       return _commentRepo.ReadPostComments(postId);
     }

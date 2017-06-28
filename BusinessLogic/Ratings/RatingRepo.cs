@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessLogic.Comments;
+using Data;
 
 namespace BusinessLogic.Ratings
 {
@@ -23,7 +25,25 @@ namespace BusinessLogic.Ratings
 
     public List<Rating> ReadByPostId(int postId)
     {
-      throw new NotImplementedException();
+      using (var cx = new DataContext())
+      {
+        return cx.Query("SELECT * FROM [Ratings] WHERE [TargetId]=@TargetId AND [TargetKindId]=@TargetKindId")
+          .SetParam("@TargetId", postId)
+          .SetParam("@TargetKindId", RatingTargetKindId.Post)
+          .ExecuteReader(reader =>
+          {
+            List<Rating> ratings = null;
+            while (reader.Read())
+            {
+              if (ratings == null)
+                ratings = new List<Rating>();
+
+              ratings.Add(Rating.Read(reader));
+            }
+
+            return ratings;
+          });
+      }
     }
 
     public List<Rating> ReadByCommentId(int commentId)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Ratings;
+using Common;
 using Common.Exceptions;
 using Common.Serialization;
 using log4net;
@@ -16,7 +17,7 @@ namespace BusinessLogic.Posts
     private readonly IRatingRepo _ratingRepo;
 
     private readonly PostCache _cache;
-    private readonly List<int> _hotPostIds;
+    public List<int> HotPostIds { get; }
 
     public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo)
     {
@@ -26,7 +27,7 @@ namespace BusinessLogic.Posts
       _ratingRepo = ratingRepo;
       _cache = new PostCache(_postRepo);
 
-      _hotPostIds = GenerateHotPosts();
+      HotPostIds = GenerateHotPosts();
 
       Logger.DebugFormat("Initialized with {0}, {1}", postRepo, ratingRepo);
     }
@@ -79,20 +80,24 @@ namespace BusinessLogic.Posts
 
     public List<Post> GetNextHot(int idFrom, int count)
     {
-      var ids = _hotPostIds
-        .SkipWhile(id => id != idFrom)
-        .Take(count);
-
       List<Post> posts = null;
-      foreach (var id in ids)
+      int current = 0;
+      foreach (var id in HotPostIds.SkipWhile(id => id != idFrom))
       {
+        if (current == count)
+          break;
+
         var post = _cache.Get(id);
         if (post != null)
         {
+          if (!post.CreateTime.IsInPast())
+            continue;
+
           if (posts == null)
             posts = new List<Post>();
 
           posts.Add(post);
+          current++;
           continue;
         }
 
@@ -104,10 +109,14 @@ namespace BusinessLogic.Posts
         }
 
         _cache.Add(post);
+        if (!post.CreateTime.IsInPast())
+          continue;
+
         if (posts == null)
           posts = new List<Post>();
 
         posts.Add(post);
+        current++;
       }
 
       return posts;

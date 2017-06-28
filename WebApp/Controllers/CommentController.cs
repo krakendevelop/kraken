@@ -17,7 +17,7 @@ namespace WebApp.Controllers
       Logger.DebugFormat("User {0} requested comments for post with Id {1}", "Anonymous", postId);
 
       var commentModels = CommentManager
-        .GetAllBypostId(postId)
+        .GetAllByPostId(postId)
         .Select(BuildModel)
         .ToList();
 

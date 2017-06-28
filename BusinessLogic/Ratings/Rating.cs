@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using Common.Exceptions;
 using Newtonsoft.Json;
 
@@ -17,13 +18,17 @@ namespace BusinessLogic.Ratings
     [JsonIgnore] public bool IsLike => KindId == RatingKindId.Like;
     [JsonIgnore] public bool IsDislike => KindId == RatingKindId.Dislike;
 
-    public Rating(int userId, RatingKindId kindId, RatingTargetKindId targetKindId, int targetId)
+    public Rating(int id, int userId, RatingKindId kindId, RatingTargetKindId targetKindId, int targetId, DateTime createTime)
+      :this(userId, kindId, targetKindId, targetId)
     {
-      UserId = userId;
-      KindId = kindId;
-      TargetKindId = targetKindId;
-      TargetId = targetId;
+      SetId(id);
+      CreateTime = createTime;
+    }
 
+    public Rating(int userId, RatingKindId kindId, RatingTargetKindId targetKindId, int targetId)
+      : this(userId, targetKindId, targetId)
+    {
+      KindId = kindId;
       CreateTime = DateTime.UtcNow;
     }
 
@@ -35,6 +40,18 @@ namespace BusinessLogic.Ratings
       TargetId = targetId;
 
       CreateTime = DateTime.UtcNow;
+    }
+
+    public static Rating Read(SqlDataReader reader)
+    {
+      return new Rating(
+        reader.GetInt32(0),
+        reader.GetInt32(1),
+        (RatingKindId) reader.GetInt32(2),
+        (RatingTargetKindId) reader.GetInt32(3),
+        reader.GetInt32(4),
+        reader.GetDateTime(5)
+      );
     }
 
     public void SwitchKind()

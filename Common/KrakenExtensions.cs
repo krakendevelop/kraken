@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Runtime.InteropServices.ComTypes;
 using Common.Exceptions;
 
 namespace Common
 {
   public static class KrakenExtensions
   {
+    public static bool IsInPast(this DateTime time)
+    {
+      return time <= DateTime.UtcNow;
+    }
+
     public static T AssertNotNull<T>(this T obj)
     {
       return obj.AssertNotNull(null, null);

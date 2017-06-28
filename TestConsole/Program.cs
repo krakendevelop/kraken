@@ -39,6 +39,9 @@ namespace TestConsole
           case "p_show":
             result = ShowPosts(cmd.Params);
             break;
+          case "p_hot":
+            result = ShowHot(cmd.Params);
+            break;
           default:
             continue;
         }
@@ -116,7 +119,18 @@ namespace TestConsole
                             $"UpdateTime: {post.UpdateTime}\r\n" +
                             $"IsDeleted: {post.IsDeleted}");
 
-          var comments = CommentManager.GetAllBypostId(postId);
+          Console.WriteLine("------------------------");
+
+          int likes;
+          int dislikes;
+          PostManager
+            .GetRatings(postId)
+            .CalcRatings(out likes, out dislikes);
+
+          var rating = likes - dislikes;
+          Console.WriteLine($"Likes: {likes} Dislikes: {dislikes} Rating: {rating}");
+
+          var comments = CommentManager.GetAllByPostId(postId);
           Console.WriteLine("------------------------");
           if (comments == null)
             return "No comments";
@@ -139,13 +153,18 @@ namespace TestConsole
       return "";
     }
 
+    public static string ShowHot(string[] @params)
+    {
+      return string.Join(",", PostManager.HotPostIds);
+    }
+
     private static void PrintHelp()
     {
       Console.ForegroundColor = ConsoleColor.DarkGray;
       Console.WriteLine("dwn -source -step -count");
       Console.WriteLine("dwn_save");
-      Console.WriteLine("p_show");
-      Console.WriteLine("show_posts <-1,2,3,4,5,6,7....>");
+      Console.WriteLine("p_show <-1,2,3,4,5,6,7....>");
+      Console.WriteLine("p_hot");
       Console.WriteLine("quit");
       Console.ForegroundColor = ConsoleColor.White;
     }
