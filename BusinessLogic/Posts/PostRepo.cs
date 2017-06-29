@@ -101,9 +101,14 @@ namespace BusinessLogic.Posts
       }
     }
 
-    public void Delete(int id)
+    public int Delete(int id)
     {
-      throw new System.NotImplementedException();
+      using (var cx = new DataContext())
+      {
+        return cx.Query("UPDATE [Posts] SET [IsDeleted]=1 WHERE [Id]=@Id")
+          .SetParam("@Id", id)
+          .Execute();
+      }
     }
   }
 }

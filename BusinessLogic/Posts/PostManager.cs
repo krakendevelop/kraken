@@ -155,9 +155,16 @@ namespace BusinessLogic.Posts
 
     #endregion
 
-    public void Delete(int postId)
+    public int Delete(int postId)
     {
-      _postRepo.Delete(postId);
+      var deleted = _postRepo.Delete(postId);
+      var cachedPost = _cache.Get(postId);
+      if (cachedPost == null)
+        return deleted;
+
+      cachedPost.Delete();
+      _cache.Update(cachedPost);
+      return deleted;
     }
   }
 }

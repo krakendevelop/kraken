@@ -86,10 +86,11 @@ namespace Tests.Repos
       return posts;
     }
 
-    public void Delete(int id)
+    public int Delete(int id)
     {
       var deletedCount = _posts.RemoveAll(p => p.Id == id);
       Logger.DebugFormat("Deleted {0} posts by Id: {1}", deletedCount, id);
+      return deletedCount;
     }
 
     public List<Post> ReadAll()

@@ -10,6 +10,6 @@ namespace BusinessLogic.Posts
     Post Read(int id);
     List<Post> ReadAll();
     List<Post> ReadAll(IEnumerable<int> ids);
-    void Delete(int id);
+    int Delete(int id);
   }
 }
