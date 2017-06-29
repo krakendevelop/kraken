@@ -16,7 +16,7 @@ namespace BusinessLogic.Comments
 
     public Comment Create(int userId, int postId, string text, string imageUrl, int? commentId = null)
     {
-      var comment = new Comment(postId, userId, text, imageUrl);
+      var comment = new Comment(userId, postId, text, imageUrl);
 
       if (commentId.HasValue)
         comment.SetAsReply(commentId.Value);

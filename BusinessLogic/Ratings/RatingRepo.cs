@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLogic.Comments;
 using Data;
 
 namespace BusinessLogic.Ratings
@@ -9,7 +8,22 @@ namespace BusinessLogic.Ratings
   {
     public int Save(Rating rating)
     {
-      throw new NotImplementedException();
+      using (var cx = new DataContext())
+      {
+        return cx.Query("INSERT INTO [Ratings]" +
+                        "([UserId], [KindId], [TargetKindId], [TargetId], [CreateTime]) " +
+                        "OUTPUT INSERTED.Id VALUES(@UserId, @KindId, @TargetKindId, @TargetId, @CreateTime)")
+          .SetParam("@UserId", rating.UserId)
+          .SetParam("@KindId", rating.KindId)
+          .SetParam("@TargetKindId", rating.TargetKindId)
+          .SetParam("@TargetId", rating.TargetId)
+          .SetParam("@CreateTime", rating.CreateTime)
+          .ExecuteReader(r =>
+          {
+            r.Read();
+            return r.GetInt32(0);
+          });
+      }
     }
 
     public void Delete(Rating rating)

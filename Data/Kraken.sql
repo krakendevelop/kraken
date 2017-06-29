@@ -17,9 +17,6 @@ GO
 
 USE Kraken;
 GO
-drop table [Posts];
-drop table [Comments];
-drop table [Communities];
 drop table [Ratings];
 drop table [CommunitySubscriptions];
 GO
@@ -69,6 +66,7 @@ CREATE TABLE [Communities] (
 
 CREATE TABLE [Ratings] (
     [Id] int primary key NOT NULL IDENTITY(1,1),
+    [UserId] int NOT NULL,
     [KindId] int NOT NULL,
     [TargetKindId] int NOT NULL,
     [TargetId] int NOT NULL,

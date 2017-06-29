@@ -36,12 +36,26 @@ namespace TestConsole
           case "dwn_show":
             result = DwnShow(cmd.Params);
             break;
+
           case "p_show":
             result = ShowPosts(cmd.Params);
             break;
           case "p_hot":
             result = ShowHot(cmd.Params);
             break;
+          case "p_like":
+            result = LikePost(cmd.Params);
+            break;
+          case "p_dislike":
+            result = DislikePost(cmd.Params);
+            break;
+          case "p_comment":
+            result = CommentPost(cmd.Params);
+            break;
+          case "p_delete":
+            result = DeletePost(cmd.Params);
+            break;
+
           default:
             continue;
         }
@@ -52,6 +66,44 @@ namespace TestConsole
 
       Console.WriteLine("Finished");
       Console.ReadKey();
+    }
+
+    private static string DeletePost(string[] cmdParams)
+    {
+      var id = int.Parse(cmdParams[0]);
+      PostManager.Delete(id);
+      return "Deleted post with Id " + id;
+    }
+
+    private static string CommentPost(string[] cmdParams)
+    {
+      var id = int.Parse(cmdParams[0]);
+      var text = cmdParams[1];
+
+      CommentManager.Create(-1, id, text, null, null);
+      return "Done!";
+    }
+
+    private static string DislikePost(string[] cmdParams)
+    {
+      var id = int.Parse(cmdParams[0]);
+      var count = cmdParams.Length > 1 ? int.Parse(cmdParams[1]) : 1;
+
+      for (int i = 0; i < count; i++)
+        PostManager.Dislike(-1, id);
+
+      return "Done!";
+    }
+
+    private static string LikePost(string[] cmdParams)
+    {
+      var id = int.Parse(cmdParams[0]);
+      var count = cmdParams.Length > 1 ? int.Parse(cmdParams[1]) : 1;
+
+      for (int i = 0; i < count; i++)
+        PostManager.Like(-1, id);
+
+      return "Done!";
     }
 
     private static string DownloadFromReddit(string [] @params)
@@ -165,6 +217,10 @@ namespace TestConsole
       Console.WriteLine("dwn_save");
       Console.WriteLine("p_show <-1,2,3,4,5,6,7....>");
       Console.WriteLine("p_hot");
+      Console.WriteLine("p_like -postId <-count>");
+      Console.WriteLine("p_dislike-postId <-count>");
+      Console.WriteLine("p_comment -postId -text");
+      Console.WriteLine("p_delete - postId");
       Console.WriteLine("quit");
       Console.ForegroundColor = ConsoleColor.White;
     }

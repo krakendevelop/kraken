@@ -34,7 +34,7 @@ namespace BusinessLogic.Posts
 
     private List<int> GenerateHotPosts()
     {
-      return Enumerable.Range(0, 490).ToList();
+      return Enumerable.Range(0, 10000000).ToList();
     }
 
     public Post Create(int userId, string text, string imageUrl)

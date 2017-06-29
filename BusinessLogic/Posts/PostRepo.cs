@@ -11,7 +11,7 @@ namespace BusinessLogic.Posts
       {
         return cx.Query("INSERT INTO [Posts]" +
                         "([UserId], [CommunityId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
-                        "VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
+                        "OUTPUT INSERTED.Id VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
           .SetParam("@UserId", post.UserId)
           .SetParam("@CommunityId", post.CommunityId)
           .SetParam("@Text", post.Text)
@@ -19,7 +19,11 @@ namespace BusinessLogic.Posts
           .SetParam("@CreateTime", post.CreateTime)
           .SetParam("@UpdateTime", post.UpdateTime)
           .SetParam("@IsDeleted", post.IsDeleted)
-          .Execute();
+          .ExecuteReader(r =>
+          {
+            r.Read();
+            return r.GetInt32(0);
+          });
       }
     }
 
