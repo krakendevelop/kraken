@@ -62,8 +62,7 @@
     <Compile Include="Communities\CommunitySubscription.cs" />
     <Compile Include="Communities\ICommunityRepo.cs" />
     <Compile Include="Communities\ICommunitySubscriptionRepo.cs" />
-    <Compile Include="Data\IRepo.cs" />
-    <Compile Include="Data\AttributeExtensions.cs" />
+    <Compile Include="IRepo.cs" />
     <Compile Include="Posts\IPostRepo.cs" />
     <Compile Include="Posts\Post.cs" />
     <Compile Include="Posts\PostCache.cs" />

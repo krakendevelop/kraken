@@ -1,6 +1,4 @@
-﻿using BusinessLogic.Data;
-
-namespace BusinessLogic.Users.Auth
+﻿namespace BusinessLogic.Users.Auth
 {
   public interface IAuthUserRepo : IRepo
   {

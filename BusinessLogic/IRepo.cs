@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Data
+﻿namespace BusinessLogic
 {
   public interface IRepo
   {

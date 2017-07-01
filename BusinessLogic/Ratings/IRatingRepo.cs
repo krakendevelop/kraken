@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BusinessLogic.Data;
 
 namespace BusinessLogic.Ratings
 {

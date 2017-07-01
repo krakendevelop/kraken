@@ -1,6 +1,4 @@
-﻿using BusinessLogic.Data;
-
-namespace BusinessLogic.Users
+﻿namespace BusinessLogic.Users
 {
   public interface IUserRepo : IRepo
   {
