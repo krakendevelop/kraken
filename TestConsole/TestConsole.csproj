@@ -47,6 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandProcessing\CommandProcessor.cs" />
+    <Compile Include="CommandProcessing\UserUnfollowProcessor.cs" />
+    <Compile Include="CommandProcessing\UserFollowProcessor.cs" />
+    <Compile Include="CommandProcessing\UserFollowsProcessor.cs" />
+    <Compile Include="CommandProcessing\UserFollowersProcessor.cs" />
+    <Compile Include="CommandProcessing\PostCommentProcessor.cs" />
+    <Compile Include="CommandProcessing\PostDeleteProcessor.cs" />
+    <Compile Include="CommandProcessing\PostDislikeProcessor.cs" />
+    <Compile Include="CommandProcessing\PostHotProcessor.cs" />
+    <Compile Include="CommandProcessing\PostLikeProcessor.cs" />
+    <Compile Include="CommandProcessing\PostShowProcessor.cs" />
     <Compile Include="ConsoleCommand.cs" />
     <Compile Include="Download\DownloadedPost.cs" />
     <Compile Include="Download\DownloadSource.cs" />

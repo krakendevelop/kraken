@@ -10,13 +10,13 @@ namespace BusinessLogic.Posts
       using (var cx = new DataContext())
       {
         return cx.Query("INSERT INTO [Posts]" +
-                        "([UserId], [CommunityId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
-                        "OUTPUT INSERTED.Id VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
+                        "([UserId], [CommunityId], [Text], [ImageUrl], [AcceptTime], [UpdateTime], [IsDeleted]) " +
+                        "OUTPUT INSERTED.Id VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @AcceptTime, @UpdateTime, @IsDeleted)")
           .SetParam("@UserId", post.UserId)
           .SetParam("@CommunityId", post.CommunityId)
           .SetParam("@Text", post.Text)
           .SetParam("@ImageUrl", post.ImageUrl)
-          .SetParam("@CreateTime", post.CreateTime)
+          .SetParam("@AcceptTime", post.CreateTime)
           .SetParam("@UpdateTime", post.UpdateTime)
           .SetParam("@IsDeleted", post.IsDeleted)
           .ExecuteReader(r =>
@@ -32,14 +32,14 @@ namespace BusinessLogic.Posts
       using (var cx = new DataContext())
       {
         return cx.Query("UPDATE [Posts]" +
-                        " SET [UserId]=@UserId, [CommunityId]=@CommunityId, [Text]=@Text, [ImageUrl]=@ImageUrl, [CreateTime]=@CreateTime," +
+                        " SET [UserId]=@UserId, [CommunityId]=@CommunityId, [Text]=@Text, [ImageUrl]=@ImageUrl, [AcceptTime]=@AcceptTime," +
                         "[UpdateTime]=@UpdateTime, [IsDeleted]=@IsDeleted WHERE [Id]=@Id")
           .SetParam("@Id", post.Id)
           .SetParam("@UserId", post.UserId)
           .SetParam("@CommunityId", post.CommunityId)
           .SetParam("@Text", post.Text)
           .SetParam("@ImageUrl", post.ImageUrl)
-          .SetParam("@CreateTime", post.CreateTime)
+          .SetParam("@AcceptTime", post.CreateTime)
           .SetParam("@UpdateTime", post.UpdateTime)
           .SetParam("@IsDeleted", post.IsDeleted)
           .Execute();

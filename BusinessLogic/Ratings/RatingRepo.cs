@@ -11,13 +11,13 @@ namespace BusinessLogic.Ratings
       using (var cx = new DataContext())
       {
         return cx.Query("INSERT INTO [Ratings]" +
-                        "([UserId], [KindId], [TargetKindId], [TargetId], [CreateTime]) " +
-                        "OUTPUT INSERTED.Id VALUES(@UserId, @KindId, @TargetKindId, @TargetId, @CreateTime)")
+                        "([UserId], [KindId], [TargetKindId], [TargetId], [AcceptTime]) " +
+                        "OUTPUT INSERTED.Id VALUES(@UserId, @KindId, @TargetKindId, @TargetId, @AcceptTime)")
           .SetParam("@UserId", rating.UserId)
           .SetParam("@KindId", rating.KindId)
           .SetParam("@TargetKindId", rating.TargetKindId)
           .SetParam("@TargetId", rating.TargetId)
-          .SetParam("@CreateTime", rating.CreateTime)
+          .SetParam("@AcceptTime", rating.CreateTime)
           .ExecuteReader(r =>
           {
             r.Read();

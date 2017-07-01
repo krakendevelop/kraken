@@ -10,14 +10,14 @@ namespace BusinessLogic.Comments
       using (var cx = new DataContext())
       {
         return cx.Query("INSERT INTO [Comments]" +
-          "([UserId], [PostId], [CommentId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
-          "VALUES(@UserId, @PostId, @CommentId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
+          "([UserId], [PostId], [CommentId], [Text], [ImageUrl], [AcceptTime], [UpdateTime], [IsDeleted]) " +
+          "VALUES(@UserId, @PostId, @CommentId, @Text, @ImageUrl, @AcceptTime, @UpdateTime, @IsDeleted)")
           .SetParam("@UserId", comment.UserId)
           .SetParam("@PostId", comment.PostId)
           .SetParam("@CommentId", comment.CommentId)
           .SetParam("@Text", comment.Text)
           .SetParam("@ImageUrl", comment.ImageUrl)
-          .SetParam("@CreateTime", comment.CreateTime)
+          .SetParam("@AcceptTime", comment.CreateTime)
           .SetParam("@UpdateTime", comment.UpdateTime)
           .SetParam("@IsDeleted", comment.IsDeleted)
           .Execute();
@@ -29,7 +29,7 @@ namespace BusinessLogic.Comments
       using (var cx = new DataContext())
       {
         return cx.Query("UPDATE [Comments]" +
-          " SET [UserId]=@UserId, [PostId]=@PostId, [CommentId]=@CommentId, [Text]=@Text, [ImageUrl]=@ImageUrl, [CreateTime]=@CreateTime," +
+          " SET [UserId]=@UserId, [PostId]=@PostId, [CommentId]=@CommentId, [Text]=@Text, [ImageUrl]=@ImageUrl, [AcceptTime]=@AcceptTime," +
           "[UpdateTime]=@UpdateTime, [IsDeleted]=@IsDeleted WHERE [Id]=@Id")
           .SetParam("@Id", comment.Id)
           .SetParam("@UserId", comment.UserId)
@@ -37,7 +37,7 @@ namespace BusinessLogic.Comments
           .SetParam("@CommentId", comment.CommentId)
           .SetParam("@Text", comment.Text)
           .SetParam("@ImageUrl", comment.ImageUrl)
-          .SetParam("@CreateTime", comment.CreateTime)
+          .SetParam("@AcceptTime", comment.CreateTime)
           .SetParam("@UpdateTime", comment.UpdateTime)
           .SetParam("@IsDeleted", comment.IsDeleted)
           .Execute();

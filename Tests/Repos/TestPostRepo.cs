@@ -71,7 +71,7 @@ namespace Tests.Repos
     public Post Read(int id)
     {
       var post = _posts.SingleOrDefault(p => p.Id == id);
-      Logger.DebugFormat("Read post: {0}", post);
+      Logger.DebugFormat("ReadFollowers post: {0}", post);
 
       return post;
     }

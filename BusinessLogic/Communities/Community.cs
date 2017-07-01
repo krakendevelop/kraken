@@ -2,6 +2,8 @@
 
 namespace BusinessLogic.Communities
 {
+  // obsolete feature
+  [Obsolete]
   public class Community : BaseEntity
   {
     public int OwnerUserId { get; private set; }

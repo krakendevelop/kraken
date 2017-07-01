@@ -81,9 +81,10 @@
     <Compile Include="Users\Auth\AuthUserRepo.cs" />
     <Compile Include="Users\Auth\IAuthUserRepo.cs" />
     <Compile Include="Users\Auth\UserRole.cs" />
-    <Compile Include="Users\Friends\Friendship.cs" />
-    <Compile Include="Users\Friends\FriendshipManager.cs" />
-    <Compile Include="Users\Friends\IFriendshipRepo.cs" />
+    <Compile Include="Users\Following\Follow.cs" />
+    <Compile Include="Users\Following\FollowManager.cs" />
+    <Compile Include="Users\Following\FollowRepo.cs" />
+    <Compile Include="Users\Following\IFollowRepo.cs" />
     <Compile Include="Users\IUserRepo.cs" />
     <Compile Include="Users\UserRepo.cs" />
     <Compile Include="Users\User.cs" />

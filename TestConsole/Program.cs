@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BusinessLogic.Comments;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
 using Common.Exceptions;
+using TestConsole.CommandProcessing;
 using TestConsole.Download;
 
 namespace TestConsole
 {
   class Program
   {
-    private static readonly PostManager PostManager = new PostManager(new PostRepo(), new RatingRepo());
-    private static readonly CommentManager CommentManager = new CommentManager(new CommentRepo(), new RatingRepo());
+    protected static readonly PostManager PostManager = new PostManager(new PostRepo(), new RatingRepo());
     private static HashSet<DownloadedPost> _downloadedPosts;
 
     static void Main(string[] args)
@@ -38,22 +37,35 @@ namespace TestConsole
             break;
 
           case "p_show":
-            result = ShowPosts(cmd.Params);
+            result = new PostShowProcessor().Process(cmd.Params);
             break;
           case "p_hot":
-            result = ShowHot(cmd.Params);
+            result = new PostHotProcessor().Process(cmd.Params);
             break;
           case "p_like":
-            result = LikePost(cmd.Params);
+            result = new PostLikeProcessor().Process(cmd.Params);
             break;
           case "p_dislike":
-            result = DislikePost(cmd.Params);
+            result = new PostDislikeProcessor().Process(cmd.Params);
             break;
           case "p_comment":
-            result = CommentPost(cmd.Params);
+            result = new PostCommentProcessor().Process(cmd.Params);
             break;
           case "p_delete":
-            result = DeletePost(cmd.Params);
+            result = new PostDeleteProcessor().Process(cmd.Params);
+            break;
+
+          case "u_followers":
+            result = new UserFollowersProcessor().Process(cmd.Params);
+            break;
+          case "u_follows":
+            result = new UserFollowsProcessor().Process(cmd.Params);
+            break;
+          case "u_follow":
+            result = new UserFollowProcessor().Process(cmd.Params);
+            break;
+          case "u_unfollow":
+            result = new UserUnfollowProcessor().Process(cmd.Params);
             break;
 
           default:
@@ -66,44 +78,6 @@ namespace TestConsole
 
       Console.WriteLine("Finished");
       Console.ReadKey();
-    }
-
-    private static string DeletePost(string[] cmdParams)
-    {
-      var id = int.Parse(cmdParams[0]);
-      PostManager.Delete(id);
-      return "Deleted post with Id " + id;
-    }
-
-    private static string CommentPost(string[] cmdParams)
-    {
-      var id = int.Parse(cmdParams[0]);
-      var text = cmdParams[1];
-
-      CommentManager.Create(-1, id, text, null, null);
-      return "Done!";
-    }
-
-    private static string DislikePost(string[] cmdParams)
-    {
-      var id = int.Parse(cmdParams[0]);
-      var count = cmdParams.Length > 1 ? int.Parse(cmdParams[1]) : 1;
-
-      for (int i = 0; i < count; i++)
-        PostManager.Dislike(-1, id);
-
-      return "Done!";
-    }
-
-    private static string LikePost(string[] cmdParams)
-    {
-      var id = int.Parse(cmdParams[0]);
-      var count = cmdParams.Length > 1 ? int.Parse(cmdParams[1]) : 1;
-
-      for (int i = 0; i < count; i++)
-        PostManager.Like(-1, id);
-
-      return "Done!";
     }
 
     private static string DownloadFromReddit(string [] @params)
@@ -142,74 +116,6 @@ namespace TestConsole
         .Select(p => $"{p.Source}\t{p.Content}\t{p.ImageUrl}"));
     }
 
-    private static string ShowPosts(string[] @params)
-    {
-      if (@params == null || @params.Length == 0)
-      {
-        int i = 1;
-
-        Post post;
-        while ((post = PostManager.Get(i++)) != null)
-        {
-          Console.WriteLine($"Id: {post.Id} UserId: {post.UserId} CommunityId: {post.CommunityId} Text: {post.Text} Image: {post.ImageUrl} CreateTime: {post.CreateTime} UpdateTime {post.UpdateTime} IsDeleted {post.IsDeleted}");
-        }
-      }
-      else
-      {
-        var ids = @params[0].Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-        if (ids.Length == 1)
-        {
-          var postId = int.Parse(ids[0]);
-          var post = PostManager.Get(postId);
-          Console.WriteLine($"Id: {post.Id}\r\n" +
-                            $"UserId: {post.UserId}\r\n" +
-                            $"CommunityId: {post.CommunityId}\r\n" +
-                            $"Text: {post.Text}\r\n" +
-                            $"Image: {post.ImageUrl}\r\n" +
-                            $"CreateTime: {post.CreateTime}\r\n" +
-                            $"UpdateTime: {post.UpdateTime}\r\n" +
-                            $"IsDeleted: {post.IsDeleted}");
-
-          Console.WriteLine("------------------------");
-
-          int likes;
-          int dislikes;
-          PostManager
-            .GetRatings(postId)
-            .CalcRatings(out likes, out dislikes);
-
-          var rating = likes - dislikes;
-          Console.WriteLine($"Likes: {likes} Dislikes: {dislikes} Rating: {rating}");
-
-          var comments = CommentManager.GetAllByPostId(postId);
-          Console.WriteLine("------------------------");
-          if (comments == null)
-            return "No comments";
-
-          foreach (var comment in comments)
-          {
-            Console.WriteLine($"Id: {comment.Id} CommentId: {comment.CommentId} UserId: {comment.Id} Text: {comment.Text} Create Time: {comment.CreateTime}");
-          }
-
-          return "";
-        }
-
-        foreach (var id in ids)
-        {
-          var post = PostManager.Get(int.Parse(id));
-          Console.WriteLine($"Id: {post.Id} UserId: {post.UserId} CommunityId: {post.CommunityId} Text: {post.Text} Image: {post.ImageUrl} CreateTime: {post.CreateTime} UpdateTime {post.UpdateTime} IsDeleted {post.IsDeleted}");
-        }
-      }
-
-      return "";
-    }
-
-    public static string ShowHot(string[] @params)
-    {
-      return string.Join(",", PostManager.HotPostIds);
-    }
-
     private static void PrintHelp()
     {
       Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -220,7 +126,11 @@ namespace TestConsole
       Console.WriteLine("p_like -postId <-count>");
       Console.WriteLine("p_dislike-postId <-count>");
       Console.WriteLine("p_comment -postId -text");
-      Console.WriteLine("p_delete - postId");
+      Console.WriteLine("p_delete -postId");
+      Console.WriteLine("u_followers -userId");
+      Console.WriteLine("u_follows -userId");
+      Console.WriteLine("u_follow -initiatorUserId -targetUserId");
+      Console.WriteLine("u_unfollow -initiatorUserId -targetUserId");
       Console.WriteLine("quit");
       Console.ForegroundColor = ConsoleColor.White;
     }

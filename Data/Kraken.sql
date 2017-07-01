@@ -73,10 +73,10 @@ CREATE TABLE [Ratings] (
     [CreateTime] datetime NOT NULL,
 );
 
-CREATE TABLE [CommunitySubscriptions] (
+CREATE TABLE [Follows] (
     [Id] int primary key NOT NULL IDENTITY(1,1),
-    [UserId] int NOT NULL,
-    [CommunityId] int NOT NULL,
+    [InitiatorUserId] int NOT NULL,
+    [TargetUserId] int NOT NULL,
     [CreateTime] datetime NOT NULL,
 );
 
