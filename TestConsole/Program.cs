@@ -82,12 +82,9 @@ namespace TestConsole
 
     private static string DownloadFromReddit(string [] @params)
     {
-      if (@params.Length != 3)
-        throw new KrakenException();
-
       new RedditDownloader()
-        .WithStep(int.Parse(@params[1]))
-        .StopWhenCountEquals(int.Parse(@params[2]))
+        .WithStep(int.Parse(@params[0]))
+        .StopWhenCountEquals(int.Parse(@params[1]))
         .Download()
         .WriteResultTo(out _downloadedPosts);
 

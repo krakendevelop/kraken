@@ -23,6 +23,7 @@ GO
 
 USE Kraken;
 GO
+
 CREATE TABLE [Posts] (
     [Id] int primary key NOT NULL IDENTITY(1,1),
     [UserId] int NOT NULL,
@@ -82,7 +83,6 @@ CREATE TABLE [Follows] (
 
 GO
 
-use kraken;
-go
+select * from kraken.dbo.posts
 SELECT * FROM [Comments] WHERE [PostId]=3
 go

@@ -28,7 +28,18 @@ namespace BusinessLogic.Posts
 
     public bool Add(Post post)
     {
-      return _postsById.TryAdd(post.Id, post);
+      const int limit = 10;
+      int current = 0;
+
+      do
+      {
+        if (_postsById.TryAdd(post.Id, post))
+          return true;
+
+        current++;
+      } while (current < limit);
+
+      return false;
     }
 
     public Post Get(int id)

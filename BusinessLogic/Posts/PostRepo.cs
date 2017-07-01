@@ -10,13 +10,13 @@ namespace BusinessLogic.Posts
       using (var cx = new DataContext())
       {
         return cx.Query("INSERT INTO [Posts]" +
-                        "([UserId], [CommunityId], [Text], [ImageUrl], [AcceptTime], [UpdateTime], [IsDeleted]) " +
-                        "OUTPUT INSERTED.Id VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @AcceptTime, @UpdateTime, @IsDeleted)")
+                        "([UserId], [CommunityId], [Text], [ImageUrl], [CreateTime], [UpdateTime], [IsDeleted]) " +
+                        "OUTPUT INSERTED.Id VALUES(@UserId, @CommunityId, @Text, @ImageUrl, @CreateTime, @UpdateTime, @IsDeleted)")
           .SetParam("@UserId", post.UserId)
           .SetParam("@CommunityId", post.CommunityId)
           .SetParam("@Text", post.Text)
           .SetParam("@ImageUrl", post.ImageUrl)
-          .SetParam("@AcceptTime", post.CreateTime)
+          .SetParam("@CreateTime", post.CreateTime)
           .SetParam("@UpdateTime", post.UpdateTime)
           .SetParam("@IsDeleted", post.IsDeleted)
           .ExecuteReader(r =>
