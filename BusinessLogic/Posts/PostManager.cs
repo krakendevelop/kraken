@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using BusinessLogic.Ratings;
 using BusinessLogic.Users.Following;
 using Common;
@@ -21,6 +22,9 @@ namespace BusinessLogic.Posts
     private readonly PostCache _cache;
     public List<int> HotPostIds { get; }
 
+    private DateTime? _lastMonthCalcTime;
+    public List<Post> LastMonthTop { get; private set; }
+
     public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo, IFollowRepo followRepo)
     {
       Logger.Debug("Initializing...");
@@ -28,9 +32,14 @@ namespace BusinessLogic.Posts
       _postRepo = postRepo;
       _ratingRepo = ratingRepo;
       _followRepo = followRepo;
+
       _cache = new PostCache(_postRepo);
 
       HotPostIds = GenerateHotPosts();
+
+      CalculateLastMonthTopIfNeeded(3);
+      var timer = new Timer(60 * 60 * 60);
+      timer.Elapsed += (sender, args) => CalculateLastMonthTopIfNeeded(3);
 
       Logger.DebugFormat("Initialized with {0}, {1}, {2}", postRepo, ratingRepo, followRepo);
     }
@@ -38,6 +47,34 @@ namespace BusinessLogic.Posts
     private List<int> GenerateHotPosts()
     {
       return Enumerable.Range(0, 10000000).ToList();
+    }
+
+    private void CalculateLastMonthTopIfNeeded(int count)
+    {
+      if (_lastMonthCalcTime.HasValue && _lastMonthCalcTime.Value.Month == DateTime.UtcNow.Month)
+        return;
+
+      lock (LastMonthTop)
+      {
+        var topPosts = _cache
+          .EnumeratePosts()
+          .OrderByDescending(p =>
+          {
+            int likes;
+            int dislikes;
+            _ratingRepo
+              .ReadByPostId(p.Id)
+              .CalcRatings(out likes, out dislikes);
+
+            return likes - dislikes;
+          })
+          .Take(count)
+          .ToList();
+
+        _lastMonthCalcTime = DateTime.UtcNow;
+        Logger.DebugFormat("Calculated last month rating: {0}", string.Join(",", topPosts.Select(p => p.Id)));
+        LastMonthTop = topPosts;
+      }
     }
 
     public Post Create(int userId, string text, string imageUrl)
