@@ -4,6 +4,7 @@ using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
 using BusinessLogic.Users;
 using BusinessLogic.Users.Auth;
+using BusinessLogic.Users.Following;
 using Common.Exceptions;
 using Tests.Repos;
 
@@ -12,8 +13,9 @@ namespace WebApp.Controllers
   public abstract class BaseController : Controller
   {
     private static readonly IRatingRepo RatingRepo = new TestRatingRepo();
+    private static readonly IFollowRepo FolloRepo = new FollowRepo();
 
-    protected static PostManager PostManager = new PostManager(new PostRepo(), RatingRepo);
+    protected static PostManager PostManager = new PostManager(new PostRepo(), RatingRepo, FolloRepo);
     protected static CommentManager CommentManager = new CommentManager(new TestCommentRepo(), RatingRepo);
     protected static AuthUserManager AuthManager = new AuthUserManager(new TestAuthUserRepo());
     protected static UserManager UserManager = new UserManager(new TestUserRepo());
