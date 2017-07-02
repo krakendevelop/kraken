@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Posts;
 using BusinessLogic.Ratings;
+using BusinessLogic.Users.Following;
 using Common.Exceptions;
 using TestConsole.CommandProcessing;
 using TestConsole.Download;
@@ -11,19 +12,20 @@ namespace TestConsole
 {
   class Program
   {
-    protected static readonly PostManager PostManager = new PostManager(new PostRepo(), new RatingRepo());
+    protected static readonly PostManager PostManager = new PostManager(new PostRepo(), new RatingRepo(), new FollowRepo());
     private static HashSet<DownloadedPost> _downloadedPosts;
 
     static void Main(string[] args)
     {
+      PrintHelp();
       ConsoleCommand cmd;
 
       do
       {
-        PrintHelp();
         cmd = new ConsoleCommand(Console.ReadLine());
 
-        string result;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        string result = null;
         switch (cmd.Name)
         {
           case "dwn":
@@ -54,6 +56,12 @@ namespace TestConsole
           case "p_delete":
             result = new PostDeleteProcessor().Process(cmd.Params);
             break;
+          case "p_feed":
+            result = new PostUserFeedProcessor().Process(cmd.Params);
+            break;
+          case "p_by_user":
+            result = new PostByUserProcessor().Process(cmd.Params);
+            break;
 
           case "u_followers":
             result = new UserFollowersProcessor().Process(cmd.Params);
@@ -68,11 +76,17 @@ namespace TestConsole
             result = new UserUnfollowProcessor().Process(cmd.Params);
             break;
 
+          case "help":
+            PrintHelp();
+            break;
+
           default:
             continue;
         }
 
-        Console.WriteLine(result);
+        if (!string.IsNullOrEmpty(result))
+          Console.WriteLine(result);
+        Console.ForegroundColor = ConsoleColor.White;
 
       } while (cmd.Name != "quit");
 
@@ -118,16 +132,22 @@ namespace TestConsole
       Console.ForegroundColor = ConsoleColor.DarkGray;
       Console.WriteLine("dwn -source -step -count");
       Console.WriteLine("dwn_save");
+      Console.WriteLine();
       Console.WriteLine("p_show <-1,2,3,4,5,6,7....>");
       Console.WriteLine("p_hot");
       Console.WriteLine("p_like -postId <-count>");
       Console.WriteLine("p_dislike-postId <-count>");
       Console.WriteLine("p_comment -postId -text");
       Console.WriteLine("p_delete -postId");
+      Console.WriteLine("p_feed -userId");
+      Console.WriteLine("p_by_user -userId");
+      Console.WriteLine();
       Console.WriteLine("u_followers -userId");
       Console.WriteLine("u_follows -userId");
       Console.WriteLine("u_follow -initiatorUserId -targetUserId");
       Console.WriteLine("u_unfollow -initiatorUserId -targetUserId");
+      Console.WriteLine();
+      Console.WriteLine("help");
       Console.WriteLine("quit");
       Console.ForegroundColor = ConsoleColor.White;
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLogic.Posts
 {
@@ -53,9 +54,11 @@ namespace BusinessLogic.Posts
       return _postsById.AddOrUpdate(post.Id, p => post, (i, p) => post);
     }
 
-    public IEnumerable<Post> EnumeratePosts()
+    public IEnumerable<Post> EnumeratePosts(bool includeDeleted = false)
     {
-      return _postsById.Values;
+      return _postsById
+        .Values
+        .Where(p => includeDeleted || !p.IsDeleted);
     }
   }
 }

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Ratings;
+using BusinessLogic.Users.Following;
 using Common;
 using Common.Exceptions;
 using Common.Serialization;
@@ -10,26 +12,27 @@ namespace BusinessLogic.Posts
 {
   public class PostManager
   {
-    private static readonly ILog Logger =
-      LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     private readonly IPostRepo _postRepo;
     private readonly IRatingRepo _ratingRepo;
+    private readonly IFollowRepo _followRepo;
 
     private readonly PostCache _cache;
     public List<int> HotPostIds { get; }
 
-    public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo)
+    public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo, IFollowRepo followRepo)
     {
       Logger.Debug("Initializing...");
 
       _postRepo = postRepo;
       _ratingRepo = ratingRepo;
+      _followRepo = followRepo;
       _cache = new PostCache(_postRepo);
 
       HotPostIds = GenerateHotPosts();
 
-      Logger.DebugFormat("Initialized with {0}, {1}", postRepo, ratingRepo);
+      Logger.DebugFormat("Initialized with {0}, {1}, {2}", postRepo, ratingRepo, followRepo);
     }
 
     private List<int> GenerateHotPosts()
@@ -119,6 +122,39 @@ namespace BusinessLogic.Posts
         current++;
       }
 
+      return posts;
+    }
+
+    // todo v.koshman right now all posts are stored in cache, that's why we garantee any post can be acquired,
+    // todo but we need to change this assumption, because at some point it might not be valid
+    // todo add UserPosts table and store everything there? If so, add transaction logic to update it along with Posts table
+
+    public List<Post> GetUserPosts(int userId)
+    {
+      var posts = _cache
+        .EnumeratePosts()
+        .Where(p => p.UserId == userId)
+        .ToList();
+
+      Logger.DebugFormat("Selected {0} posts by user {1}", posts.Count, userId);
+      return posts;
+    }
+
+    public List<Post> GetNextFeedPosts(int userId, DateTime lastPostTime, int count)
+    {
+      var followIds = _followRepo
+        .ReadFollows(userId)
+        .Select(f => f.TargetUserId);
+
+      var posts = _cache
+        .EnumeratePosts()
+        .Where(p => followIds.Contains(p.UserId))
+        .OrderBy(p => p.CreateTime)
+        .SkipWhile(p => p.CreateTime > lastPostTime)
+        .Take(count)
+        .ToList();
+
+      Logger.DebugFormat("Selected {0} posts for user {1} feed.", posts.Count, userId);
       return posts;
     }
 

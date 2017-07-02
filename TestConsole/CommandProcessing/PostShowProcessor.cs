@@ -15,7 +15,7 @@ namespace TestConsole.CommandProcessing
         Post post;
         while ((post = PostManager.Get(i++)) != null)
         {
-          Console.WriteLine($"Id: {post.Id} UserId: {post.UserId} CommunityId: {post.CommunityId} Text: {post.Text} Image: {post.ImageUrl} AcceptTime: {post.CreateTime} UpdateTime {post.UpdateTime} IsDeleted {post.IsDeleted}");
+          PrintPostPreview(post);
         }
       }
       else
@@ -62,7 +62,7 @@ namespace TestConsole.CommandProcessing
         foreach (var id in ids)
         {
           var post = PostManager.Get(int.Parse(id));
-          Console.WriteLine($"Id: {post.Id} UserId: {post.UserId} CommunityId: {post.CommunityId} Text: {post.Text} Image: {post.ImageUrl} AcceptTime: {post.CreateTime} UpdateTime {post.UpdateTime} IsDeleted {post.IsDeleted}");
+          PrintPostPreview(post);
         }
       }
 

@@ -83,6 +83,5 @@ CREATE TABLE [Follows] (
 
 GO
 
-select * from kraken.dbo.posts
-SELECT * FROM [Comments] WHERE [PostId]=3
+UPDATE Kraken.dbo.[Posts] SET [UserId]=2 WHERE [Id]=10
 go

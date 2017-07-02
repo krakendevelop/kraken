@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandProcessing\CommandProcessor.cs" />
+    <Compile Include="CommandProcessing\PostByUserProcessor.cs" />
+    <Compile Include="CommandProcessing\PostUserFeedProcessor.cs" />
     <Compile Include="CommandProcessing\UserUnfollowProcessor.cs" />
     <Compile Include="CommandProcessing\UserFollowProcessor.cs" />
     <Compile Include="CommandProcessing\UserFollowsProcessor.cs" />
