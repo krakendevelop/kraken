@@ -23,8 +23,9 @@ namespace BusinessLogic.Posts
     public List<int> HotPostIds { get; }
 
     private DateTime? _lastMonthCalcTime;
+    private object _topSyncObj;
     public List<Post> LastMonthTop { get; private set; }
-
+    
     public PostManager(IPostRepo postRepo, IRatingRepo ratingRepo, IFollowRepo followRepo)
     {
       Logger.Debug("Initializing...");
@@ -34,6 +35,7 @@ namespace BusinessLogic.Posts
       _followRepo = followRepo;
 
       _cache = new PostCache(_postRepo);
+      _topSyncObj = new object();
 
       HotPostIds = GenerateHotPosts();
 
@@ -54,7 +56,7 @@ namespace BusinessLogic.Posts
       if (_lastMonthCalcTime.HasValue && _lastMonthCalcTime.Value.Month == DateTime.UtcNow.Month)
         return;
 
-      lock (LastMonthTop)
+      lock (_topSyncObj)
       {
         var topPosts = _cache
           .EnumeratePosts()

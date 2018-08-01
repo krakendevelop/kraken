@@ -14,8 +14,8 @@
     </div>
     <div class="bottom-area">
       <ul class="likes">
-        <li><a href="#"><i class="fa fa-thumbs-up"></i>6 805</a></li>
-        <li><a href="#"><i class="fa fa-thumbs-down"></i>597</a></li>
+        <li><a data-bind="click: likePost"><i class="fa fa-thumbs-up" data-bind="text: post.LikeCount"></i></a></li>
+        <li><a data-bind="click: dislikePost"><i class="fa fa-thumbs-down" data-bind="text: post.DislikeCount"></i></a></li>
       </ul>
       <a href="#" class="comments"><i class="fa fa-comments"></i>Comments</a>
     </div>

@@ -4,7 +4,7 @@
   {
     PasswordDoesNotMatch = -2,
     UserNotFound = -1,
-    Unkown = 0,
-    Succesful = 1,
+    Unknown = 0,
+    Successful = 1,
   }
 }

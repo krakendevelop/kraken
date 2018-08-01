@@ -3,22 +3,16 @@ GO
 CREATE DATABASE Kraken  
 ON   
 ( NAME = Kraken_dat,  
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\krakendat.mdf',  
+    FILENAME = 'g:\Programs\SQL_Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\krakendat.mdf',  
     SIZE = 10,
     MAXSIZE = 50, 
     FILEGROWTH = 5 )  
 LOG ON  
 ( NAME = Kraken_log,  
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\krakenlog.ldf',  
+    FILENAME = 'g:\Programs\SQL_Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\krakenlog.ldf',  
     SIZE = 5MB,
     MAXSIZE = 25MB,  
     FILEGROWTH = 5MB ) ;  
-GO
-
-USE Kraken;
-GO
-drop table [Ratings];
-drop table [CommunitySubscriptions];
 GO
 
 USE Kraken;
@@ -83,5 +77,19 @@ CREATE TABLE [Follows] (
 
 GO
 
-UPDATE Kraken.dbo.[Posts] SET [UserId]=2 WHERE [Id]=10
-go
+use Kraken;
+-- Creates the login AbolrousHazem with password '340$Uuxwp7Mcxo7Khy'.  
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'IIS APPPOOL\KrakenPool')
+BEGIN
+    CREATE LOGIN [IIS APPPOOL\KrakenPool] 
+      FROM WINDOWS WITH DEFAULT_DATABASE=[master], 
+      DEFAULT_LANGUAGE=[us_english]
+END
+GO
+
+use Kraken;
+CREATE USER [IIS APPPOOL\KrakenPool] 
+  FOR LOGIN [IIS APPPOOL\KrakenPool]
+GO
+EXEC sp_addrolemember 'db_owner', 'IIS APPPOOL\KrakenPool'
+GO

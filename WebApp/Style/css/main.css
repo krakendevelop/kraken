@@ -1315,26 +1315,31 @@ body {
 }
 
 .two-cols {
-	width: 100%;
-	max-width: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: reverse;
-	-ms-flex-direction: row-reverse;
-	flex-direction: row-reverse;
+  flex: 1;
+  min-width: 900px;
+  position: relative;
+  max-width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 .main-col {
-	width: 100%;
-	padding: 0 15px;
+  width: 70%;
+  float: left;
+  padding-right: 12px;
 }
 
 .aside-col {
-	min-width: 330px;
-	max-width: 330px;
-	padding: 0 15px;
+  width: 300px;
+  top: 0px;
+  margin-left: 0px;
+  padding-left: 6px;
+  width: 30%;
+  position: relative;
+  float: right;
+  margin-right: 0;
+  overflow: hidden;
 }
 
 .category-box {
@@ -1611,7 +1616,6 @@ body {
 
 	.aside-col {
 		min-width: 260px;
-		max-width: 260px;
 		padding: 0 10px;
 	}
 

@@ -43,7 +43,7 @@ namespace BusinessLogic.Users.Auth
 
         authUser = existingUser;
         return existingUser.IsPasswordMatch(password)
-          ? AuthenticationStatus.Succesful
+          ? AuthenticationStatus.Successful
           : AuthenticationStatus.PasswordDoesNotMatch;
       }
 
@@ -53,7 +53,7 @@ namespace BusinessLogic.Users.Auth
 
       authUser = existingUser;
       return existingUser.IsPasswordMatch(password)
-        ? AuthenticationStatus.Succesful
+        ? AuthenticationStatus.Successful
         : AuthenticationStatus.PasswordDoesNotMatch;
     }
   }

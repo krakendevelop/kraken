@@ -13,9 +13,9 @@ namespace WebApp.Controllers
   public abstract class BaseController : Controller
   {
     private static readonly IRatingRepo RatingRepo = new TestRatingRepo();
-    private static readonly IFollowRepo FolloRepo = new FollowRepo();
+    private static readonly IFollowRepo FollowRepo = new FollowRepo();
 
-    protected static PostManager PostManager = new PostManager(new PostRepo(), RatingRepo, FolloRepo);
+    protected static PostManager PostManager = new PostManager(new PostRepo(), RatingRepo, FollowRepo);
     protected static CommentManager CommentManager = new CommentManager(new TestCommentRepo(), RatingRepo);
     protected static AuthUserManager AuthManager = new AuthUserManager(new TestAuthUserRepo());
     protected static UserManager UserManager = new UserManager(new TestUserRepo());
@@ -31,7 +31,7 @@ namespace WebApp.Controllers
       var user = UserManager.Get(authUser.Id);
 
       if (user == null)
-        throw new KrakenException("User signed in sucessfully but couldn't load their profile Id: " + authUser.Id);
+        throw new KrakenException("User signed in successfully but couldn't load their profile Id: " + authUser.Id);
 
       CurrentUser = user;
     }

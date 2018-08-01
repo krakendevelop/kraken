@@ -55,16 +55,18 @@ namespace WebApp.Controllers
     [HttpPost]
     public ActionResult Like(int postId)
     {
-      Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUser.Id, postId);
+      //Logger.DebugFormat("User {0} requsted to like Post {1}", CurrentUser.Id, postId);
       PostManager.Like(CurrentUser.Id, postId);
+      //PostManager.Like(1, postId);
       return Json(1, JsonRequestBehavior.DenyGet);
     }
 
     [HttpPost]
     public ActionResult Dislike(int postId)
     {
-      Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUser.Id, postId);
-      PostManager.Dislike(CurrentUser.Id, postId);
+      //Logger.DebugFormat("User {0} requsted to dislike Post {1}", CurrentUser.Id, postId);
+      //PostManager.Dislike(CurrentUser.Id, postId);
+      PostManager.Dislike(1, postId);
       return Json(1, JsonRequestBehavior.DenyGet);
     }
 

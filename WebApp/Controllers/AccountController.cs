@@ -26,7 +26,7 @@ namespace WebApp.Controllers
 
       AuthUser authUser;
       var status = AuthManager.ValidateAndRead(login.Password, out authUser, login.Username, login.Email);
-      if (status == AuthenticationStatus.Succesful)
+      if (status == AuthenticationStatus.Successful)
       {
         if (authUser == null)
           throw new KrakenException("User was validated sucessfully but AuthUser is null");

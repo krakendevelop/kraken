@@ -1,4 +1,4 @@
-﻿var pageSize = 10;
+﻿var pageSize = 20;
 var pageIndex = 0;
 
 $(document).ready(function () {
@@ -63,7 +63,7 @@ function getData() {
 
 function likePost(post) {
   $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: '/post/Like',
     data: { "postId": post.Id },
     dataType: 'json',
@@ -81,7 +81,7 @@ function likePost(post) {
 
 function dislikePost(post) {
   $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: '/post/Dislike',
     data: { "postId": post.Id },
     dataType: 'json',
